@@ -54,7 +54,7 @@ export default function LoadingScreen() {
           <div className="w-full max-w-md space-y-4">
             {/* Header info */}
             <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-neutral-500">
-              <span>HM_ENGINE_V1.2.0</span>
+              <span>HIMASHMAYADUNNA_ENGINE_V1.2.0</span>
               <span>CONNECTED</span>
             </div>
 

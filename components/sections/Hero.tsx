@@ -61,7 +61,6 @@ export default function Developer() {
     name: "Himash Mayadunna",
     location: "Colombo, Sri Lanka",
     education: "NSBM Green University",
-    gpa: "3.85 / 4.00",
     status: "Seeking Internship"
   };
 }`,

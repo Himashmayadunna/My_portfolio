@@ -5,6 +5,7 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import GlassCard from "@/components/ui/GlassCard";
 import { Code, Globe } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function About() {
   return (
@@ -25,31 +26,25 @@ export default function About() {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute h-[250px] w-[250px] rounded-full border border-dashed border-[#7C3AED]/30"
+                className="absolute h-[310px] w-[310px] rounded-full border border-dashed border-[#7C3AED]/30"
               />
               <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                className="absolute h-[220px] w-[220px] rounded-full border border-dotted border-[#3B82F6]/40"
+                className="absolute h-[270px] w-[270px] rounded-full border border-dotted border-[#3B82F6]/40"
               />
 
               {/* Central stylized avatar */}
-              <div className="relative z-10 flex h-44 w-44 items-center justify-center rounded-full bg-gradient-to-tr from-[#7C3AED] to-[#3B82F6] p-1 shadow-[0_0_30px_rgba(124,58,237,0.3)] hover:shadow-[0_0_45px_rgba(124,58,237,0.55)] transition-shadow duration-500">
-                <div className="flex h-full w-full items-center justify-center rounded-full bg-[#05050B] overflow-hidden text-neutral-400">
-                  {/* Decorative modern developer graphic representation */}
-                  <svg
-                    className="h-28 w-28 text-neutral-400 opacity-80"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1.5}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
-                    />
-                  </svg>
+              <div className="relative z-10 flex h-60 w-60 items-center justify-center rounded-full bg-gradient-to-tr from-[#7C3AED] to-[#3B82F6] p-1 shadow-[0_0_30px_rgba(124,58,237,0.3)] hover:shadow-[0_0_45px_rgba(124,58,237,0.55)] transition-shadow duration-500">
+                <div className="relative flex h-full w-full items-center justify-center rounded-full bg-[#05050B] overflow-hidden">
+                  <Image
+                    src="/me.jpeg"
+                    alt="Himash Mayadunna"
+                    fill
+                    sizes="240px"
+                    className="object-cover"
+                    priority
+                  />
                 </div>
               </div>
 
@@ -57,14 +52,14 @@ export default function About() {
               <motion.div
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-4 right-8 z-20 flex h-9 w-9 items-center justify-center rounded-lg border border-white/5 bg-white/5 backdrop-blur-md text-[#7C3AED]"
+                className="absolute top-2 right-4 z-20 flex h-9 w-9 items-center justify-center rounded-lg border border-white/5 bg-white/5 backdrop-blur-md text-[#7C3AED]"
               >
                 <Code className="h-4 w-4" />
               </motion.div>
               <motion.div
                 animate={{ y: [0, 6, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-6 left-8 z-20 flex h-9 w-9 items-center justify-center rounded-lg border border-white/5 bg-white/5 backdrop-blur-md text-[#3B82F6]"
+                className="absolute bottom-4 left-4 z-20 flex h-9 w-9 items-center justify-center rounded-lg border border-white/5 bg-white/5 backdrop-blur-md text-[#3B82F6]"
               >
                 <Globe className="h-4 w-4" />
               </motion.div>

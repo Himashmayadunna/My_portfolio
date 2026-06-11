@@ -7,7 +7,7 @@ export default function CustomCursor() {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  const springConfig = { damping: 35, stiffness: 250, mass: 0.5 };
+  const springConfig = { damping: 25, stiffness: 350, mass: 0.35 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
@@ -94,8 +94,8 @@ export default function CustomCursor() {
       {/* Inner Dot */}
       <motion.div
         style={{
-          x: cursorX,
-          y: cursorY,
+          x: mouseX,
+          y: mouseY,
           translateX: "-50%",
           translateY: "-50%",
         }}

@@ -38,15 +38,16 @@ function CounterNumber({ value }: CounterProps) {
 
 export default function Statistics() {
   const stats = [
-    { value: 120, suffix: "+", label: "Projects Completed" },
-    { value: 40, suffix: "+", label: "Happy Clients" },
-    { value: 5000, suffix: "+", label: "GitHub Contributions" },
+    { value: 5, suffix: "+", label: "Projects Completed" },
+    { value: 1, suffix: "+", label: "Year of Experience" },
+    { value: 3, suffix: "+", label: "Years of Learning" },
+    { value: 300, suffix: "+", label: "GitHub Contributions" },
   ];
 
   return (
     <section id="statistics" className="px-6 py-12 relative">
       <div className="mx-auto max-w-5xl">
-        <div className="grid gap-6 sm:grid-cols-3">
+        <div className="grid gap-6 grid-cols-2 lg:grid-cols-4">
           {stats.map((stat, i) => (
             <GlassCard key={i} delay={i * 0.08} className="text-center py-8">
               <div className="flex items-center justify-center gap-0.5">
