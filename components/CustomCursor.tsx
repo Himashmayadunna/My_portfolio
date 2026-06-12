@@ -89,7 +89,7 @@ export default function CustomCursor() {
           height: hovered ? 60 : 32,
         }}
         transition={{ type: "spring", stiffness: 350, damping: 28 }}
-        className="pointer-events-none fixed top-0 left-0 z-50 rounded-full border border-blue-500/20 bg-blue-500/5 mix-blend-screen backdrop-blur-[0.5px] hidden md:block"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full border border-blue-500/20 bg-blue-500/5 mix-blend-screen backdrop-blur-[0.5px] hidden md:block"
       />
       {/* Inner Dot */}
       <motion.div
@@ -104,7 +104,7 @@ export default function CustomCursor() {
           backgroundColor: hovered ? "#A855F7" : "#3B82F6",
         }}
         transition={{ type: "spring", stiffness: 450, damping: 25 }}
-        className="pointer-events-none fixed top-0 left-0 z-50 h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.6)] hidden md:block"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.6)] hidden md:block"
       />
     </>
   );
