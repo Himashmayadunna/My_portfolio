@@ -3,41 +3,72 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// ── Custom SVG Icon Assets ─────────────────────────────────────
+const ReactIcon = () => (
+  <svg className="w-5 h-5" viewBox="-11.5 -10.23174 23 20.46348" fill="none">
+    <circle cx="0" cy="0" r="2.05" fill="#61DAFB" />
+    <g stroke="#61DAFB" strokeWidth="1" fill="none">
+      <ellipse rx="11" ry="4.2" />
+      <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+      <ellipse rx="11" ry="4.2" transform="rotate(120)" />
+    </g>
+  </svg>
+);
+
+const NextjsIcon = () => (
+  <svg className="w-5 h-5" viewBox="0 0 180 180" fill="none">
+    <path fillRule="evenodd" clipRule="evenodd" d="M149.508 157.52L82.203 71.0667V135H68V45H82.203L135.292 113.326V45H149.508V157.52Z" fill="white" />
+  </svg>
+);
+
+const NodejsIcon = () => (
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
+    <path d="M12 0c-1.393 0-2.787.354-4.043 1.063l-5.908 3.41c-2.512 1.45-4.049 4.113-4.049 7.017v6.822c0 2.904 1.537 5.567 4.049 7.017l5.908 3.41C9.213 23.646 10.607 24 12 24c1.393 0 2.787-.354 4.043-1.063l5.908-3.41c2.512-1.45 4.049-4.113 4.049-7.017V11.49c0-2.904-1.537-5.567-4.049-7.017l-5.908-3.41C14.787.354 13.393 0 12 0zm-1 4.797c.414 0 .828.106 1.2.32l5.143 2.97c.754.435 1.215 1.234 1.215 2.105v5.938c0 .87-.461 1.67-1.215 2.105L12.2 21.21c-.372.214-.786.32-1.2.32-.414 0-.828-.106-1.2-.32L4.657 18.24c-.754-.435-1.215-1.234-1.215-2.105V10.2c0-.87.461-1.67 1.215-2.105L9.8 5.117c.372-.214.786-.32 1.2-.32z" fill="#339933" />
+  </svg>
+);
+
+const ExpressIcon = () => (
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
+    <text x="50%" y="65%" fill="white" fontSize="11" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle">EX</text>
+    <rect x="2" y="2" width="20" height="20" rx="4" stroke="white" strokeWidth="1.5" fill="none" opacity="0.3" />
+  </svg>
+);
+
+const SupabaseIcon = () => (
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
+    <path d="M21.3619 12.1804L13.7853 22.8277C13.2505 23.5794 12.0834 23.2384 12.0287 22.3168L11.5307 13.916H4.25008C3.12517 13.916 2.51862 12.5936 3.25301 11.7408L10.8296 1.09349C11.3644 0.341814 12.5315 0.682784 12.5862 1.6044L13.0842 10.0052H20.3648C21.4897 10.0052 22.0963 11.3276 21.3619 12.1804Z" fill="#3ECF8E" />
+  </svg>
+);
+
+const JavaIcon = () => (
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
+    <path d="M2 19.5c0 .28.22.5.5.5h16c.28 0 .5-.22.5-.5v-1h-17v1zm14.5-9.5c0-.83-.67-1.5-1.5-1.5h-10c-.83 0-1.5.67-1.5 1.5v6c0 .83.67 1.5 1.5 1.5h10c.83 0 1.5-.67 1.5-1.5v-6zm3-1h-2v4h2c.83 0 1.5-.67 1.5-1.5v-1c0-.83-.67-1.5-1.5-1.5zM9 1.5C9.55 1.5 10 2 10 2.5v2c0 .5-.45.9-1 .9s-1-.4-1-.9v-2c0-.5.45-1 1-1zm3.5 0c.55 0 1 .5 1 1v2c0 .5-.45.9-1 .9s-1-.4-1-.9v-2c0-.5.45-1 1-1z" fill="#ED8B00" />
+  </svg>
+);
+
 export default function LoadingScreen() {
-  const [progress, setProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
-  const logs = [
-    "Initializing dev environment...",
-    "Mounting React 19 & Next.js routes...",
-    "Injecting Framer Motion physics...",
-    "Loading Tailwind CSS variables...",
-    "Compiling premium UI layouts...",
-    "System hydrated. Launching portfolio...",
-  ];
-
   useEffect(() => {
-    const duration = 1800;
-    const interval = 20;
-    const step = 100 / (duration / interval);
+    // Disable scrolling when the splash screen is active
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = "hidden";
+    }
 
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        const next = prev + step;
-        if (next >= 100) {
-          clearInterval(timer);
-          setTimeout(() => setIsVisible(false), 200);
-          return 100;
-        }
-        return next;
-      });
-    }, interval);
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+      if (typeof document !== "undefined") {
+        document.body.style.overflow = "";
+      }
+    }, 2500);
 
-    return () => clearInterval(timer);
+    return () => {
+      clearTimeout(timer);
+      if (typeof document !== "undefined") {
+        document.body.style.overflow = "";
+      }
+    };
   }, []);
-
-  const idx = Math.min(Math.floor((progress / 100) * logs.length), logs.length - 1);
-  const terminalText = logs[idx];
 
   return (
     <AnimatePresence>
@@ -46,45 +77,171 @@ export default function LoadingScreen() {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            y: "-100%",
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
+            transition: { duration: 0.6, ease: "easeInOut" },
           }}
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#05050B] font-mono text-xs text-neutral-400 px-6"
+          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#05050B] overflow-hidden"
         >
-          <div className="w-full max-w-md space-y-4">
-            {/* Header info */}
-            <div className="flex items-center justify-between text-[10px] uppercase tracking-wider text-neutral-500">
-              <span>HIMASHMAYADUNNA_ENGINE_V1.2.0</span>
-              <span>CONNECTED</span>
-            </div>
+          {/* Subtle Grid Overlay */}
+          <div
+            className="absolute inset-0 -z-10 grid-bg opacity-[0.15] pointer-events-none"
+            style={{
+              maskImage: "radial-gradient(circle at center, black 10%, transparent 60%)",
+              WebkitMaskImage: "radial-gradient(circle at center, black 10%, transparent 60%)",
+            }}
+          />
 
-            {/* Simulated terminal logs */}
-            <div className="h-10 select-none border border-white/5 bg-black/40 px-3 py-2 text-neutral-300 rounded-md">
-              <span className="text-blue-400">&gt; </span>
-              <span>{terminalText}</span>
-              <motion.span
-                animate={{ opacity: [1, 0, 1] }}
-                transition={{ duration: 0.8, repeat: Infinity }}
-                className="inline-block h-3.5 w-1.5 translate-y-0.5 bg-neutral-300 ml-1"
-              />
-            </div>
-
-            {/* Progress Bar */}
-            <div className="relative h-[2px] w-full overflow-hidden rounded-full bg-white/5">
-              <motion.div
-                className="h-full bg-gradient-to-r from-[#7C3AED] via-[#3B82F6] to-[#A855F7]"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-
-            {/* Percentage indicator */}
-            <div className="flex justify-between font-bold text-xs uppercase tracking-wider">
-              <span className="bg-gradient-to-r from-blue-400 to-violet-400 bg-clip-text text-transparent">
-                Loading Environment
-              </span>
-              <span className="text-white">{Math.floor(progress)}%</span>
-            </div>
+          {/* Vercel-inspired Dark Mesh Background */}
+          <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
+            {/* Deep Indigo Mesh Orb */}
+            <motion.div
+              animate={{
+                x: [-20, 20, -20],
+                y: [-15, 15, -15],
+                scale: [1, 1.08, 1],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-purple-900/10 blur-[130px] mix-blend-screen"
+            />
+            {/* Deep Blue Mesh Orb */}
+            <motion.div
+              animate={{
+                x: [20, -20, 20],
+                y: [15, -15, 15],
+                scale: [1, 1.04, 1],
+              }}
+              transition={{
+                duration: 12,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[800px] h-[800px] rounded-full bg-blue-900/10 blur-[150px] mix-blend-screen"
+            />
           </div>
+
+          {/* Splash Content Stagger Wrapper */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.12,
+                  delayChildren: 0.1,
+                },
+              },
+            }}
+            className="flex flex-col items-center px-6"
+          >
+            {/* Central Monogram Badge */}
+            <motion.div
+              variants={{
+                hidden: { scale: 0.8, opacity: 0, filter: "blur(8px)" },
+                visible: {
+                  scale: 1,
+                  opacity: 1,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              className="relative w-28 h-28 flex items-center justify-center rounded-full bg-white/[0.015] border border-white/10 backdrop-blur-xl shadow-[0_0_50px_rgba(168,85,247,0.15)] select-none mb-8"
+            >
+              {/* Slow Rotating Dashed Edge Ring */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 rounded-full border border-dashed border-purple-500/30"
+              />
+
+              {/* HM Monogram Text */}
+              <span className="text-3xl font-extrabold tracking-widest bg-gradient-to-b from-white to-neutral-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(168,85,247,0.45)]">
+                HM
+              </span>
+
+              {/* Pulsing center glow */}
+              <motion.div
+                animate={{
+                  scale: [0.95, 1.05, 0.95],
+                  opacity: [0.35, 0.55, 0.35],
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-1.5 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-full blur-md -z-10"
+              />
+            </motion.div>
+
+            {/* Himash Mayadunna */}
+            <motion.h1
+              variants={{
+                hidden: { opacity: 0, y: 12, filter: "blur(8px)" },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              style={{
+                textShadow: "0 0 35px rgba(168, 85, 247, 0.2), 0 0 70px rgba(59, 130, 246, 0.1)",
+              }}
+              className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-2 font-sans select-none text-center"
+            >
+              Himash Mayadunna
+            </motion.h1>
+
+            {/* Software Engineering Undergraduate */}
+            <motion.p
+              variants={{
+                hidden: { opacity: 0, y: 8, filter: "blur(4px)" },
+                visible: {
+                  opacity: 0.8,
+                  y: 0,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              className="text-xs md:text-sm font-semibold tracking-wide text-neutral-400 text-center select-none"
+            >
+              Software Engineering Undergraduate
+            </motion.p>
+
+
+
+            {/* ── Professional Horizontal Row of Tech Icons ── */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 10, filter: "blur(4px)" },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                },
+              }}
+              className="flex items-center justify-center gap-5 mt-7 px-5 py-2.5 rounded-2xl border border-white/5 bg-white/[0.01] backdrop-blur-md"
+            >
+              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300" title="React"><ReactIcon /></div>
+              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300" title="Next.js"><NextjsIcon /></div>
+              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300" title="Node.js"><NodejsIcon /></div>
+              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300" title="Express.js"><ExpressIcon /></div>
+              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300" title="Supabase"><SupabaseIcon /></div>
+              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300" title="Java"><JavaIcon /></div>
+            </motion.div>
+
+          </motion.div>
+
+          {/* Thin Animated Gradient Loading Line at the Bottom (2.5 seconds) */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            style={{ originX: 0 }}
+            transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 z-[110]"
+          />
         </motion.div>
       )}
     </AnimatePresence>
