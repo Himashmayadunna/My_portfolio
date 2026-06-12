@@ -60,72 +60,8 @@ export const ABOUT = {
   ],
 } as const;
 
-// ── Tech Stack / Skills ──────────────────────────────────────
-export interface Skill {
-  name: string;
-  level: number; // 0 to 100
-  color: string; // Tailwind accent colors or gradients
-}
+// ── Tech Stack / Skills (Moved to section-specific component to support direct SVG references and dynamic glow states)
 
-export interface BentoSkillCategory {
-  title: string;
-  description: string;
-  skills: Skill[];
-  gridSpan: string; // Tailwind grid span classes
-}
-
-export const SKILLS_CATEGORIES: BentoSkillCategory[] = [
-  {
-    title: "Frontend",
-    description: "Creating highly interactive and responsive user interfaces.",
-    gridSpan: "col-span-1 md:col-span-2",
-    skills: [
-      { name: "React", level: 90, color: "from-blue-400 to-cyan-500" },
-      { name: "Next.js", level: 85, color: "from-neutral-200 to-neutral-400" },
-      { name: "HTML / CSS", level: 95, color: "from-orange-400 to-red-500" },
-      { name: "Tailwind CSS", level: 92, color: "from-cyan-400 to-blue-500" },
-    ],
-  },
-  {
-    title: "Backend",
-    description: "Designing fast, scalable server systems and RESTful APIs.",
-    gridSpan: "col-span-1",
-    skills: [
-      { name: "Node.js", level: 80, color: "from-green-400 to-emerald-600" },
-      { name: "Express", level: 85, color: "from-neutral-300 to-neutral-500" },
-    ],
-  },
-  {
-    title: "Database",
-    description: "Structuring secure and optimized relational and NoSQL databases.",
-    gridSpan: "col-span-1",
-    skills: [
-      { name: "MongoDB", level: 80, color: "from-green-500 to-emerald-700" },
-      { name: "PostgreSQL", level: 75, color: "from-blue-500 to-indigo-600" },
-      { name: "Supabase", level: 78, color: "from-emerald-400 to-teal-500" },
-    ],
-  },
-  {
-    title: "Programming",
-    description: "Strong software engineering fundamentals with type safety and OOP.",
-    gridSpan: "col-span-1 md:col-span-2",
-    skills: [
-      { name: "TypeScript", level: 85, color: "from-blue-500 to-blue-700" },
-      { name: "JavaScript", level: 90, color: "from-yellow-400 to-amber-500" },
-      { name: "Java", level: 80, color: "from-red-500 to-orange-600" },
-    ],
-  },
-  {
-    title: "Tools & Design",
-    description: "Collaborative systems, version control, and UI design.",
-    gridSpan: "col-span-1",
-    skills: [
-      { name: "Git & GitHub", level: 88, color: "from-neutral-200 to-neutral-500" },
-      { name: "VS Code", level: 95, color: "from-blue-500 to-indigo-500" },
-      { name: "Figma", level: 70, color: "from-purple-400 to-pink-500" },
-    ],
-  },
-];
 
 // ── Statistics ───────────────────────────────────────────────
 export const STATISTICS = [
