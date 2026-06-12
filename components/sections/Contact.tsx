@@ -12,6 +12,7 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleCopy = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -19,18 +20,38 @@ export default function Contact() {
     setTimeout(() => setCopiedText(null), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setIsSubmitting(true);
-    // Simulate API request
-    setTimeout(() => {
+    setIsSuccess(false);
+    setErrorMsg(null);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setIsSuccess(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => setIsSuccess(false), 5000);
+      } else {
+        setErrorMsg(data.error || "Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      setErrorMsg("An unexpected network error occurred. Please try again.");
+    } finally {
       setIsSubmitting(false);
-      setIsSuccess(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-      setTimeout(() => setIsSuccess(false), 5000);
-    }, 1800);
+    }
   };
 
   return (
@@ -203,7 +224,13 @@ export default function Contact() {
                 </div>
 
                 {/* Action submit button */}
-                <div className="pt-2 flex justify-start select-none">
+                <div className="pt-2 flex flex-col items-start gap-4 select-none w-full">
+                  {errorMsg && (
+                    <div className="text-xs font-semibold text-red-400 bg-red-500/5 border border-red-500/20 px-4 py-2.5 rounded-lg w-full">
+                      Error: {errorMsg}
+                    </div>
+                  )}
+
                   {isSuccess ? (
                     <div className="text-xs font-bold text-green-400 bg-green-500/10 border border-green-500/20 px-6 py-3 rounded-full uppercase tracking-wider animate-bounce">
                       Message Sent Successfully!
