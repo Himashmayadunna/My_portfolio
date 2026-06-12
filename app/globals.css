@@ -59,6 +59,14 @@ body {
 
 /* ── Custom Utilities ──────────────────────────────────────── */
 
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
 .glass-panel {
   background: rgba(255, 255, 255, 0.015);
   backdrop-filter: blur(16px);

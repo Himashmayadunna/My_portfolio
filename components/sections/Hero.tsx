@@ -1,10 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { HERO, CONTACT } from "@/lib/constants";
 import Button, { Magnetic } from "@/components/ui/Button";
 import { Mail } from "lucide-react";
+import MacbookMockup from "@/components/ui/MacbookMockup";
 
 const Github = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -37,42 +38,7 @@ const Linkedin = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const codeSnippets = {
-  "App.tsx": `import React, { useState } from 'react';
-
-export default function Developer() {
-  const [skills] = useState([
-    "Next.js", "React", "Node.js", 
-    "TypeScript", "Flutter", "C#"
-  ]);
-
-  return (
-    <main className="portfolio">
-      <Hero 
-        name="Himash Mayadunna"
-        passion="Interactive Web Apps" 
-        stack={skills}
-      />
-    </main>
-  );
-}`,
-  "api.ts": `export async function fetchBio() {
-  return {
-    name: "Himash Mayadunna",
-    location: "Colombo, Sri Lanka",
-    education: "NSBM Green University",
-    status: "Seeking Internship"
-  };
-}`,
-  "terminal.log": `> npm run dev
-ready - started server on 0.0.0.0:3000
-event - compiled client and server successfully in 765 ms
-✓ Ready to build impact-driven solutions.
-_`
-};
-
 export default function Hero() {
-  const [activeTab, setActiveTab] = useState<keyof typeof codeSnippets>("App.tsx");
   const [subtitleText, setSubtitleText] = useState("");
   const [subtitleIndex, setSubtitleIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -230,64 +196,17 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Side: Animated Code Editor */}
+        {/* Right Side: Floating 3D MacBook Pro Mockup */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="lg:col-span-5 relative group"
+          initial={{ opacity: 0, scale: 0.92, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
+          className="lg:col-span-5 relative w-full flex items-center justify-center overflow-visible group"
         >
-          {/* Neon Border Glow */}
-          <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-[#7C3AED] to-[#3B82F6] opacity-30 blur-lg transition duration-1000 group-hover:opacity-50" />
+          {/* Premium Neon Ambient Glow (brightens & expands on hover) */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-[75%] rounded-full bg-gradient-to-br from-[#7C3AED] to-[#3B82F6] opacity-25 blur-[75px] transition-all duration-700 pointer-events-none group-hover:opacity-55 group-hover:scale-105" />
           
-          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#05050B]/85 shadow-2xl backdrop-blur-xl">
-            {/* Header / Mac OS Controls */}
-            <div className="flex items-center justify-between border-b border-white/5 bg-black/40 px-4 py-3">
-              <div className="flex items-center gap-2 select-none">
-                <div className="h-3 w-3 rounded-full bg-red-500/80" />
-                <div className="h-3 w-3 rounded-full bg-yellow-500/80" />
-                <div className="h-3 w-3 rounded-full bg-green-500/80" />
-              </div>
-              <div className="text-[10px] uppercase tracking-widest font-mono text-neutral-500 font-semibold select-none">
-                VS Code - Himash
-              </div>
-              <div className="w-12" />
-            </div>
-
-            {/* Tabs */}
-            <div className="flex border-b border-white/5 bg-black/20 font-mono text-xs">
-              {(Object.keys(codeSnippets) as Array<keyof typeof codeSnippets>).map((tab) => {
-                const isActive = activeTab === tab;
-                return (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`border-r border-white/5 px-4 py-2 text-neutral-400 transition-colors select-none ${
-                      isActive ? "bg-black/40 text-[#A855F7] font-semibold border-b border-b-[#A855F7]" : "hover:text-white"
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Code Content */}
-            <div className="p-4 font-mono text-xs text-neutral-300 leading-relaxed overflow-x-auto min-h-[250px] relative select-none">
-              <AnimatePresence mode="wait">
-                <motion.pre
-                  key={activeTab}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="whitespace-pre text-left"
-                >
-                  <code>{codeSnippets[activeTab]}</code>
-                </motion.pre>
-              </AnimatePresence>
-            </div>
-          </div>
+          <MacbookMockup />
         </motion.div>
       </div>
 
