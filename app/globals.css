@@ -17,10 +17,31 @@
 /* ── Base resets ───────────────────────────────────────────── */
 
 html {
-  scroll-behavior: smooth;
   background-color: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
+}
+
+html:not(.lenis) {
+  scroll-behavior: smooth;
+}
+
+/* ── Lenis Smooth Scroll Resets ────────────────────────────── */
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {

@@ -26,11 +26,11 @@ export default function Education() {
             >
               <GlassCard hoverEffect={true} className="relative p-8 overflow-visible">
                 {/* Visual Glow Node */}
-                <div className="absolute -top-5 -left-5 h-12 w-12 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#6366F1] flex items-center justify-center text-white shadow-lg shadow-blue-500/20 select-none">
+                <div className="absolute -top-5 left-8 sm:-left-5 h-12 w-12 rounded-xl bg-gradient-to-br from-[#3B82F6] to-[#6366F1] flex items-center justify-center text-white shadow-lg shadow-blue-500/20 select-none">
                   <GraduationCap className="h-6 w-6" />
                 </div>
 
-                <div className="ml-4 sm:ml-8 mt-2 space-y-4">
+                <div className="pt-6 sm:pt-0 sm:ml-8 mt-2 space-y-4">
                   {/* Title & Metadata */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div>
