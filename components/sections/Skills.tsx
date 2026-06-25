@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEvent } from "react";
+import { MouseEvent, useState, useEffect } from "react";
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/utils";
@@ -259,6 +259,12 @@ interface BentoCardProps {
 }
 
 function BentoCard({ category, className, delay = 0 }: BentoCardProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 1024);
+  }, []);
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -305,7 +311,7 @@ function BentoCard({ category, className, delay = 0 }: BentoCardProps) {
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       variants={cardVariants}
-      onMouseMove={handleMouseMove}
+      onMouseMove={isMobile ? undefined : handleMouseMove}
       className={cn(
         "group relative overflow-hidden rounded-3xl border border-white/5 bg-white/[0.012] p-7 md:p-8 backdrop-blur-xl transition-all duration-500 hover:border-white/10 hover:bg-white/[0.02] hover:-translate-y-1 hover:shadow-[0_20px_50px_-20px_rgba(0,0,0,0.85)]",
         className

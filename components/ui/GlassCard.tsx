@@ -2,7 +2,7 @@
 
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { MouseEvent } from "react";
+import { MouseEvent, useState, useEffect } from "react";
 
 interface GlassCardProps {
   children: React.ReactNode;
@@ -18,6 +18,12 @@ export default function GlassCard({
   delay = 0,
   hoverEffect = true,
 }: GlassCardProps) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 1024);
+  }, []);
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -33,7 +39,7 @@ export default function GlassCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
-      onMouseMove={handleMouseMove}
+      onMouseMove={isMobile ? undefined : handleMouseMove}
       className={cn(
         "group relative overflow-hidden rounded-2xl border border-white/5 bg-white/[0.015] p-6 backdrop-blur-xl transition-all duration-300",
         hoverEffect && "hover:border-white/10 hover:bg-white/[0.03] hover:-translate-y-1 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.8)]",

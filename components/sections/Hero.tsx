@@ -76,7 +76,7 @@ export default function Hero() {
       className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 pt-24 pb-12 grid-bg"
     >
       {/* Drifting gradient blobs behind hero content */}
-      <div className="absolute inset-0 -z-10 overflow-hidden select-none pointer-events-none">
+      <div className="absolute inset-0 -z-10 overflow-hidden select-none pointer-events-none hidden lg:block">
         <motion.div
           animate={{
             x: [0, 40, -20, 0],

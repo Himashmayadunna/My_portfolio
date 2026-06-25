@@ -149,11 +149,31 @@ body {
   pointer-events: none;
 }
 
-/* ── Custom Cursor Overrides ────────────────────────────── */
-
 @media (min-width: 768px) {
   html.custom-cursor-enabled,
   html.custom-cursor-enabled * {
     cursor: none !important;
   }
 }
+
+/* ── Mobile Performance Adjustments ────────────────────────── */
+
+@media (max-width: 1024px) {
+  /* Disable expensive backdrop blurs on mobile and tablet to prevent GPU thrashing and scroll latency */
+  .glass-card,
+  .glass-panel,
+  .backdrop-blur-md,
+  .backdrop-blur-xl,
+  [class*="backdrop-blur-"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-color: rgba(10, 10, 18, 0.92) !important;
+  }
+
+  /* Disable neon glow box-shadow animations on mobile/tablet to avoid continuous repaints */
+  .neon-glow-primary,
+  .neon-glow-secondary {
+    box-shadow: none !important;
+  }
+}
+

@@ -75,7 +75,20 @@ const ScreenIcons = {
   ),
 };
 
+import { useState } from "react";
+
 export default function MacbookMockup() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   // Motion values to track absolute normalized mouse position
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -89,6 +102,8 @@ export default function MacbookMockup() {
   const tiltY = useTransform(springX, [-0.5, 0.5], [-20, 10]); // Rotates side-to-side
 
   useEffect(() => {
+    if (isMobile) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       // Calculate cursor position normalized between -0.5 and +0.5
       const normalizedX = e.clientX / window.innerWidth - 0.5;
@@ -100,7 +115,7 @@ export default function MacbookMockup() {
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isMobile]);
 
   // Float animation configuration
   const floatTransition = {
@@ -115,12 +130,12 @@ export default function MacbookMockup() {
       {/* 3D Pivot Frame */}
       <motion.div
         style={{
-          rotateX: tiltX,
-          rotateY: tiltY,
+          rotateX: isMobile ? 7 : tiltX,
+          rotateY: isMobile ? -5 : tiltY,
           transformStyle: "preserve-3d",
         }}
-        animate={{ y: [-8, 8, -8] }}
-        transition={floatTransition}
+        animate={isMobile ? { y: 0 } : { y: [-8, 8, -8] }}
+        transition={isMobile ? undefined : floatTransition}
         className="relative flex flex-col items-center w-[300px] sm:w-[420px] md:w-[490px] lg:w-[520px] aspect-[16/11] preserve-3d transition-all duration-300 z-10"
       >
         
@@ -309,11 +324,11 @@ export default function MacbookMockup() {
 
       {/* ==================== DYNAMIC FLOATING SHADOW ==================== */}
       <motion.div
-        animate={{
+        animate={isMobile ? { scale: 1, opacity: 0.5 } : {
           scale: [0.93, 1.05, 0.93],
           opacity: [0.42, 0.62, 0.42],
         }}
-        transition={floatTransition}
+        transition={isMobile ? undefined : floatTransition}
         className="absolute bottom-[-15px] left-1/2 h-10 w-[70%] sm:w-[62%] md:w-[54%] lg:w-[48%] -translate-x-1/2 rounded-full bg-black/85 blur-[16px] pointer-events-none z-0"
       />
       

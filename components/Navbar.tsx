@@ -11,28 +11,43 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
+    // Simple, lightweight scrolled state trigger (no layout calculations)
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
-
-      // Section tracking
-      const scrollPos = window.scrollY + 150; // offset for nav height
-      const sections = NAV_LINKS.map((link) => link.href.substring(1));
-
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPos >= top && scrollPos < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    onScroll(); // initial call
+
+    // Section tracking using high-performance IntersectionObserver
+    const sections = NAV_LINKS.map((link) => link.href.substring(1));
+    
+    // Config: Trigger when section occupies the upper-middle region of the screen
+    const observerOptions = {
+      root: null,
+      rootMargin: "-25% 0px -55% 0px",
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    
+    sections.forEach((sectionId) => {
+      const el = document.getElementById(sectionId);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      observer.disconnect();
+    };
   }, []);
 
   return (

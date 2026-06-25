@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 export default function AnimatedBackground() {
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden hidden lg:block">
       {/* Gradient orb 1 — top right */}
       <motion.div
         animate={{

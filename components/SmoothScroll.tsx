@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactLenis } from "lenis/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface SmoothScrollProps {
   children: React.ReactNode;
@@ -9,19 +9,32 @@ interface SmoothScrollProps {
 
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   const lenisRef = useRef<any>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Optional: Sync with other animation engines or logic if needed.
-    // e.g., GSAP scrollTrigger hookup could go here.
+    const checkMobile = () => {
+      const isMobileScreen = window.innerWidth <= 1024;
+      const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+      setIsMobile(isMobileScreen || isTouchDevice);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
     
-    // Cleanup/destroy logic is handled automatically by ReactLenis,
-    // but we can access the lenis instance via reference if we need to.
     const lenis = lenisRef.current?.lenis;
     if (lenis) {
-      // Prevent scrolling conflicts, custom speed logic, or scroll-to anchor adjustments
       console.log("Lenis instantiated successfully:", lenis);
     }
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) {
+    return <>{children}</>;
+  }
 
   return (
     <ReactLenis
@@ -31,7 +44,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
         duration: 1.2,
         lerp: 0.08,
         smoothWheel: true,
-        syncTouch: true, // Smooth touch scrolling
+        syncTouch: false, // Never intercept touch events with JavaScript smooth scroll
         touchMultiplier: 1.5,
         wheelMultiplier: 1.0,
         infinite: false,
