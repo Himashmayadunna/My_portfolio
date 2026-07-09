@@ -81,9 +81,35 @@ export interface Project {
   screenshots?: string[];
   category: "web" | "mobile" | "backend";
   image: string; // visual mock placeholder info
+  isFlagship?: boolean;
 }
 
 export const PROJECTS: Project[] = [
+  {
+    title: "MediLex – Healthcare System",
+    description:
+      "An enterprise-level Healthcare & Inventory Management System (ERP) designed to digitalize clinical operations, patient care, medical records, and supply chains using a robust relational SQL database.",
+    techStack: [
+      "React.js",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "Microsoft SQL Server",
+      "Tailwind CSS",
+      "React Query",
+      "Axios"
+    ],
+    category: "web",
+    image: "linear-gradient(135deg, #ffffff 0%, #3B82F6 50%, #10B981 100%)",
+    challenges: [
+      "Architected a complex 3NF database schema with 20+ tables, triggers, and transactions",
+      "Developed high-performance RESTful APIs in Express.js integrated with Microsoft SQL Server",
+      "Implemented secure JWT authentication and granular role-based access control (RBAC)",
+    ],
+    github: "https://github.com/himashm/medilex-healthcare",
+    demo: "/projects/medilex",
+    isFlagship: true,
+  },
   {
     title: "Auction Management System",
     description:
