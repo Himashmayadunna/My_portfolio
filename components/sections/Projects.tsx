@@ -97,143 +97,133 @@ export default function Projects() {
                     {/* Animated Border Glow Behind Card */}
                     <div className="absolute -inset-[1px] rounded-[24px] bg-gradient-to-r from-blue-500 via-emerald-400 to-indigo-500 opacity-20 blur-md group-hover:opacity-60 transition duration-700 pointer-events-none" />
                     
-                    <div className="relative flex-1 flex flex-col md:flex-row p-6 md:p-8 rounded-[24px] border border-white/10 bg-gradient-to-br from-neutral-950 via-[#050B10]/95 to-[#051410]/90 backdrop-blur-xl hover:shadow-[0_20px_50px_rgba(59,130,246,0.15)] transition-all duration-300">
-                      {/* Left Details Panel */}
-                      <div className="flex-1 flex flex-col justify-between pr-0 md:pr-6">
-                        <div>
-                          {/* Top Badges */}
-                          <div className="flex flex-wrap items-center gap-2 select-none">
-                            <span className="rounded-full bg-gradient-to-r from-blue-500 to-emerald-500 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
-                              Flagship Project
-                            </span>
-                            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400">
-                              Full Stack ERP | Advanced DBMS
-                            </span>
-                          </div>
-
-                          {/* Title */}
-                          <h3 className="mt-4 text-2xl md:text-3xl font-extrabold text-white tracking-tight bg-clip-text bg-gradient-to-r from-white via-blue-100 to-emerald-100">
-                            {project.title}
-                          </h3>
-
-                          {/* Description */}
-                          <p className="mt-4 text-sm md:text-base text-neutral-300 leading-relaxed max-w-2xl">
-                            {project.description}
-                          </p>
-
-                          {/* Tech Stack */}
-                          <div className="mt-6 flex flex-wrap gap-2">
-                            {project.techStack.map((tech) => (
-                              <Badge key={tech}>{tech}</Badge>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Features Column */}
-                        <div className="mt-6 pt-6 border-t border-white/5 space-y-3">
-                          <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 flex items-center gap-1.5">
-                            <ShieldCheck className="h-4 w-4 text-emerald-400" />
-                            Core Capabilities Engineered
-                          </h4>
-                          <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                            {project.challenges.map((c, idx) => (
-                              <div
-                                key={idx}
-                                className="flex items-start gap-2 p-2 rounded-lg bg-white/[0.02] border border-white/5 text-xs text-neutral-400 hover:text-white transition-colors"
-                              >
-                                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-blue-500" />
-                                <span>{c}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Right Architecture & Stats Panel */}
-                      <div className="mt-6 md:mt-0 w-full md:w-80 flex-shrink-0 flex flex-col justify-between border-t md:border-t-0 md:border-l border-white/5 pt-6 md:pt-0 md:pl-6">
-                        {/* Interactive Stats Block */}
-                        <div className="space-y-4">
-                          <h4 className="text-xs font-semibold uppercase tracking-wider text-neutral-400 flex items-center gap-1.5">
-                            <Database className="h-4 w-4 text-blue-400" />
-                            Project Architecture Statistics
-                          </h4>
-                          
-                          {/* Mini Stats Grid */}
-                          <div className="grid grid-cols-2 gap-3">
-                            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-blue-500/20 transition-all">
-                              <span className="block text-xl font-bold text-white font-mono">20+</span>
-                              <span className="text-[10px] text-neutral-500 uppercase tracking-wider">DB Tables</span>
+                    <div className="relative flex-1 p-6 md:p-8 rounded-[24px] border border-white/10 bg-gradient-to-br from-neutral-950 via-[#050B10]/95 to-[#051410]/90 backdrop-blur-xl hover:shadow-[0_20px_40px_rgba(59,130,246,0.1)] transition-all duration-500">
+                      
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        
+                        {/* Project Details Panel (Left 6 Cols) */}
+                        <div className="lg:col-span-6 flex flex-col justify-between h-full space-y-4">
+                          <div>
+                            {/* Badging */}
+                            <div className="flex items-center gap-2 select-none">
+                              <span className="rounded-full bg-gradient-to-r from-blue-500 to-emerald-500 px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white shadow-[0_2px_10px_rgba(59,130,246,0.3)]">
+                                Flagship Project
+                              </span>
+                              <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-neutral-400 bg-white/5 border border-white/5 px-2 py-0.5 rounded">
+                                Full Stack ERP
+                              </span>
                             </div>
-                            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/20 transition-all">
-                              <span className="block text-xl font-bold text-white font-mono">50+</span>
-                              <span className="text-[10px] text-neutral-500 uppercase tracking-wider">REST APIs</span>
-                            </div>
-                            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-indigo-500/20 transition-all">
-                              <span className="block text-xl font-bold text-white font-mono">10+</span>
-                              <span className="text-[10px] text-neutral-500 uppercase tracking-wider">Core Modules</span>
-                            </div>
-                            <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-purple-500/20 transition-all">
-                              <span className="block text-xs font-bold text-white uppercase tracking-wider">3NF SQL</span>
-                              <span className="text-[10px] text-neutral-500 uppercase tracking-wider">Stored Procs</span>
+
+                            {/* Project Title */}
+                            <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-white leading-tight">
+                              {project.title}
+                            </h3>
+
+                            {/* Description */}
+                            <p className="mt-3 text-xs md:text-sm text-neutral-300 leading-relaxed max-w-xl">
+                              {project.description}
+                            </p>
+
+                            {/* Tech Badges */}
+                            <div className="mt-4 flex flex-wrap gap-1.5">
+                              {project.techStack.map((tech) => (
+                                <Badge key={tech}>{tech}</Badge>
+                              ))}
                             </div>
                           </div>
 
-                          {/* Architecture SVG Visual */}
-                          <div className="relative py-4 px-3 rounded-xl bg-white/[0.01] border border-white/5 flex flex-col justify-center items-center gap-2 select-none overflow-hidden group/arch">
-                            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-emerald-500/5 opacity-0 group-hover/arch:opacity-100 transition-opacity" />
-                            
-                            <div className="flex items-center gap-2 text-xs font-semibold text-neutral-300 relative z-10 w-full justify-between">
-                              <div className="flex items-center gap-1 bg-white/5 px-2 py-0.5 rounded border border-white/10">
-                                <Layout className="h-3 w-3 text-blue-400" />
-                                <span>React</span>
-                              </div>
-                              <span className="text-neutral-500 text-[10px] animate-pulse">➔</span>
-                              <div className="flex items-center gap-1 bg-white/5 px-2 py-0.5 rounded border border-white/10">
-                                <Cpu className="h-3 w-3 text-indigo-400" />
-                                <span>Express</span>
-                              </div>
-                              <span className="text-neutral-500 text-[10px] animate-pulse">➔</span>
-                              <div className="flex items-center gap-1 bg-white/5 px-2 py-0.5 rounded border border-white/10">
-                                <Database className="h-3 w-3 text-emerald-400" />
-                                <span>SQL Server</span>
-                              </div>
+                          {/* Compact Stats Row */}
+                          <div className="flex items-center gap-4 py-2 border-y border-white/5 select-none text-[11px] text-neutral-400 font-mono">
+                            <div className="flex items-center gap-1.5">
+                              <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                              <span><strong className="text-white">20+</strong> DB Tables</span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                              <span><strong className="text-white">50+</strong> REST APIs</span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                              <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />
+                              <span><strong className="text-white">3NF</strong> SQL</span>
                             </div>
                           </div>
-                        </div>
 
-                        {/* Actions / Buttons */}
-                        <div className="mt-8 flex flex-col gap-2">
-                          <Link
-                            href="/projects/medilex"
-                            className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-600 px-4 py-3 text-xs font-bold uppercase tracking-wider text-white hover:from-blue-500 hover:to-emerald-500 shadow-[0_10px_20px_rgba(59,130,246,0.2)] hover:shadow-[0_15px_30px_rgba(59,130,246,0.35)] transition-all duration-300"
-                          >
-                            <FileText className="h-4 w-4" />
-                            Read Case Study
-                            <ArrowRight className="h-4 w-4" />
-                          </Link>
-                          
-                          <div className="grid grid-cols-2 gap-2">
-                            {project.github && (
-                              <a
-                                href={project.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] py-2.5 text-[11px] font-semibold text-neutral-300 hover:bg-white/5 hover:text-white transition-colors"
-                              >
-                                <Github className="h-3.5 w-3.5" />
-                                GitHub
-                              </a>
-                            )}
+                          {/* Button Actions */}
+                          <div className="flex flex-wrap items-center gap-3 pt-2">
                             <Link
-                              href="/projects/medilex#gallery"
-                              className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] py-2.5 text-[11px] font-semibold text-neutral-300 hover:bg-white/5 hover:text-white transition-colors"
+                              href="/projects/medilex"
+                              className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-600 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white hover:from-blue-500 hover:to-emerald-500 shadow-[0_10px_20px_rgba(59,130,246,0.2)] hover:shadow-[0_15px_30px_rgba(59,130,246,0.35)] transition-all duration-300"
                             >
-                              <ImageIcon className="h-3.5 w-3.5 text-blue-400" />
-                              Screenshots
+                              <FileText className="h-4 w-4" />
+                              Read Case Study
+                              <ArrowRight className="h-4 w-4" />
                             </Link>
+
+                            <div className="flex items-center gap-2">
+                              {project.github && (
+                                <a
+                                  href={project.github}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] px-3.5 py-2.5 text-xs font-semibold text-neutral-300 hover:bg-white/5 hover:text-white transition-colors cursor-pointer"
+                                >
+                                  <Github className="h-3.5 w-3.5" />
+                                  GitHub
+                                </a>
+                              )}
+                              <Link
+                                href="/projects/medilex#gallery"
+                                className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] px-3.5 py-2.5 text-xs font-semibold text-neutral-300 hover:bg-white/5 hover:text-white transition-colors cursor-pointer"
+                              >
+                                <ImageIcon className="h-3.5 w-3.5 text-blue-400" />
+                                Screenshots
+                              </Link>
+                            </div>
                           </div>
                         </div>
+
+                        {/* Widescreen Interactive Image Mockup Column (Right 6 Cols) */}
+                        <div className="lg:col-span-6 flex flex-col justify-center relative">
+                          {/* Browser Window frame with subtle hover transition */}
+                          <Link href="/projects/medilex" className="block select-none">
+                            <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 bg-[#090910] shadow-[0_20px_40px_rgba(0,0,0,0.5)] group/mockup">
+                              {/* Ambient hover glow */}
+                              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-500/5 via-emerald-500/5 to-indigo-500/5 opacity-0 group-hover/mockup:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                              {/* Browser mock window header */}
+                              <div className="flex items-center justify-between bg-[#0D0D18] px-3.5 py-2 border-b border-white/5 relative z-20">
+                                <div className="flex items-center gap-1.5">
+                                  <div className="h-1.5 w-1.5 rounded-full bg-rose-500/60" />
+                                  <div className="h-1.5 w-1.5 rounded-full bg-amber-500/60" />
+                                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500/80" />
+                                </div>
+                                <div className="h-3.5 w-36 bg-white/5 rounded-[3px] flex items-center justify-center border border-white/5">
+                                  <span className="text-[7px] text-neutral-500 font-mono">medilex-healthcare.com</span>
+                                </div>
+                                <div className="w-8" />
+                              </div>
+
+                              {/* Viewport Screenshot */}
+                              <div className="relative h-44 sm:h-52 md:h-64 w-full overflow-hidden bg-neutral-900">
+                                <img
+                                  src={project.image}
+                                  alt={`${project.title} Dashboard Widescreen Preview`}
+                                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/mockup:scale-[1.02]"
+                                />
+                                {/* Case Study hover overlay button */}
+                                <div className="absolute inset-0 bg-black/25 group-hover/mockup:bg-mockup hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                                  <span className="text-[10px] font-bold uppercase tracking-wider text-white bg-black/75 px-3 py-2 rounded-lg border border-white/10 opacity-0 group-hover/mockup:opacity-100 transition-opacity duration-300 flex items-center gap-1">
+                                    <FileText className="h-3 w-3" />
+                                    Case Study
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </Link>
+                        </div>
+
                       </div>
+
                     </div>
                   </motion.div>
                 );
@@ -242,77 +232,103 @@ export default function Projects() {
               return (
                 <motion.div
                   layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -8 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   key={project.title}
-                  className="flex flex-col"
+                  className="flex flex-col group relative"
                 >
-                  <GlassCard hoverEffect={true} className="flex-1 flex flex-col p-5">
-                    {/* Project Image Mockup Area */}
-                    <div
-                      style={{ background: project.image }}
-                      className="relative h-44 w-full rounded-xl overflow-hidden border border-white/10 flex items-center justify-center"
-                    >
-                      {/* Visual pattern overlay for mockup premium vibe */}
-                      <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px]" />
-                      <span className="relative z-10 font-bold text-white text-lg tracking-wide uppercase px-4 text-center">
-                        {project.title}
-                      </span>
-                    </div>
+                  {/* Glowing background spotlight effect on hover */}
+                  <div className="absolute -inset-px rounded-[20px] bg-gradient-to-br from-blue-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-pink-500/10 opacity-0 group-hover:opacity-100 blur-sm transition-all duration-500 pointer-events-none" />
 
-                    {/* Title & Category Badge */}
-                    <div className="mt-4 flex items-center justify-between">
-                      <h3 className="text-lg font-bold text-white tracking-wide">
-                        {project.title}
-                      </h3>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 font-mono">
+                  <GlassCard 
+                    hoverEffect={false} 
+                    className="flex-1 flex flex-col p-5 rounded-[20px] border border-white/5 bg-[#090910]/90 backdrop-blur-xl group-hover:border-white/15 transition-all duration-300 relative overflow-hidden"
+                  >
+                    {/* Viewport/Mockup Image Container */}
+                    <div className="relative h-44 w-full rounded-xl overflow-hidden border border-white/10 bg-[#06060c] flex items-center justify-center select-none group/viewport">
+                      {/* Browser top-bar mock */}
+                      <div className="absolute top-0 left-0 right-0 h-6 bg-[#0c0c14] border-b border-white/5 flex items-center px-3 gap-1.5 z-20">
+                        <div className="h-1.5 w-1.5 rounded-full bg-rose-500/60" />
+                        <div className="h-1.5 w-1.5 rounded-full bg-amber-500/60" />
+                        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500/60" />
+                        <div className="h-3 w-24 bg-white/5 rounded-[3px] ml-2 flex items-center justify-center border border-white/5">
+                          <span className="text-[7px] text-neutral-500 font-mono scale-90">localhost:3000</span>
+                        </div>
+                      </div>
+
+                      {/* Content representation */}
+                      <div className="absolute inset-0 pt-6 flex items-center justify-center">
+                        {project.image.startsWith("linear-gradient") ? (
+                          <div className="absolute inset-0 transition-transform duration-500 group-hover/viewport:scale-105" style={{ background: project.image }} />
+                        ) : (
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover/viewport:scale-105"
+                          />
+                        )}
+                        {/* Wavy overlay grid lines for tech look */}
+                        <div className="absolute inset-0 bg-grid-bg opacity-[0.15] mix-blend-overlay" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                      </div>
+
+                      {/* Floating Category Tag */}
+                      <span className="absolute bottom-3 right-3 z-20 rounded bg-white/10 px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-neutral-300 border border-white/10 backdrop-blur-sm">
                         {project.category}
                       </span>
                     </div>
 
+                    {/* Title */}
+                    <div className="mt-5">
+                      <h3 className="text-lg font-bold text-white tracking-wide group-hover:text-blue-400 transition-colors duration-300">
+                        {project.title}
+                      </h3>
+                    </div>
+
                     {/* Description */}
-                    <p className="mt-2 text-sm text-neutral-400 leading-relaxed flex-1">
+                    <p className="mt-2 text-xs text-neutral-400 leading-relaxed flex-1">
                       {project.description}
                     </p>
 
-                    {/* Technology badging */}
+                    {/* Tech Badges */}
                     <div className="mt-4 flex flex-wrap gap-1.5">
                       {project.techStack.map((tech) => (
                         <Badge key={tech}>{tech}</Badge>
                       ))}
                     </div>
 
-                    {/* Bullet points on key challenges */}
-                    <div className="mt-4 pt-4 border-t border-white/5 space-y-1.5">
-                      <h4 className="text-[10px] font-semibold uppercase tracking-wider text-neutral-500">
-                        Key Challenges Solved
+                    {/* Key Challenges Section */}
+                    <div className="mt-4 pt-4 border-t border-white/5 space-y-2">
+                      <h4 className="text-[9px] font-bold uppercase tracking-wider text-neutral-500">
+                        Key Engineering Solutions
                       </h4>
-                      <ul className="space-y-1">
+                      <div className="space-y-1.5">
                         {project.challenges.map((c, idx) => (
-                          <li
+                          <div
                             key={idx}
-                            className="flex items-start gap-1.5 text-xs text-neutral-400 leading-normal"
+                            className="flex items-start gap-2 p-2 rounded-lg bg-white/[0.01] border border-white/5 text-[11px] text-neutral-400 hover:text-white transition-all duration-300"
                           >
-                            <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-[#3B82F6]" />
-                            <span>{c}</span>
-                          </li>
+                            <span className="mt-1.5 h-1 w-1 rounded-full bg-blue-500 flex-shrink-0" />
+                            <span className="leading-normal">{c}</span>
+                          </div>
                         ))}
-                      </ul>
+                      </div>
                     </div>
 
                     {/* Footer links */}
-                    <div className="mt-6 flex items-center gap-4 pt-4 border-t border-white/5 select-none">
+                    <div className="mt-5 flex items-center justify-between pt-4 border-t border-white/5 select-none">
                       {project.github && (
                         <a
                           href={project.github}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors"
+                          className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors cursor-pointer group/link"
                         >
-                          <Github className="h-4 w-4" />
-                          Code
+                          <Github className="h-4 w-4 transition-transform group-hover/link:-translate-y-0.5" />
+                          <span>Code</span>
                         </a>
                       )}
                       {project.demo && (
@@ -320,10 +336,10 @@ export default function Projects() {
                           href={project.demo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs text-[#3B82F6] hover:text-[#6366F1] transition-colors ml-auto font-semibold"
+                          className="inline-flex items-center gap-1.5 text-xs text-[#3B82F6] hover:text-[#6366F1] transition-colors font-semibold cursor-pointer group/link"
                         >
-                          <ExternalLink className="h-4 w-4" />
-                          Live Demo
+                          <span>Live Demo</span>
+                          <ExternalLink className="h-4 w-4 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
                         </a>
                       )}
                     </div>

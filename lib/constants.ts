@@ -100,7 +100,7 @@ export const PROJECTS: Project[] = [
       "Axios"
     ],
     category: "web",
-    image: "linear-gradient(135deg, #ffffff 0%, #3B82F6 50%, #10B981 100%)",
+    image: "/Healthcare.png",
     challenges: [
       "Architected a complex 3NF database schema with 20+ tables, triggers, and transactions",
       "Developed high-performance RESTful APIs in Express.js integrated with Microsoft SQL Server",

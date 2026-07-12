@@ -314,6 +314,37 @@ export default function MedilexCaseStudy() {
         </div>
       </section>
 
+      {/* System Interface Gallery Showcase */}
+      <section id="gallery" className="px-6 py-8 relative select-none">
+        <div className="mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative mx-auto rounded-[24px] border border-white/10 bg-neutral-950/60 p-3 backdrop-blur-xl shadow-[0_20px_50px_rgba(59,130,246,0.15)] group"
+          >
+            {/* Ambient background glow */}
+            <div className="absolute -inset-1 rounded-[24px] bg-gradient-to-r from-blue-600 via-teal-500 to-emerald-500 opacity-20 blur-xl group-hover:opacity-30 transition duration-700 pointer-events-none" />
+            
+            {/* Browser Mockup Header */}
+            <div className="relative rounded-[16px] overflow-hidden border border-white/5 bg-[#080810]">
+              <div className="flex items-center gap-1.5 bg-[#0D0D18] px-4 py-3 border-b border-white/5">
+                <div className="h-3 w-3 rounded-full bg-rose-500/80" />
+                <div className="h-3 w-3 rounded-full bg-amber-500/80" />
+                <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
+                <span className="text-[11px] font-mono text-neutral-500 ml-4">medilex-erp-inventory-dashboard.png</span>
+              </div>
+              <img
+                src="/Healthcare.png"
+                alt="MediLex Healthcare Inventory Dashboard Preview"
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Project Overview / Challenges / Solution Grid */}
       <section className="px-6 py-12 border-t border-white/5 bg-white/[0.005]">
         <div className="mx-auto max-w-6xl">

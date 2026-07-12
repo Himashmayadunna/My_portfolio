@@ -7,7 +7,6 @@ import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import LoadingScreen from "@/components/LoadingScreen";
-import CustomCursor from "@/components/CustomCursor";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Statistics from "@/components/sections/Statistics";
@@ -23,7 +22,6 @@ export default function Home() {
     <>
       {/* Visual & Interactivity Overlays */}
       <LoadingScreen />
-      <CustomCursor />
       <ScrollProgress />
       <Navbar />
       <AnimatedBackground />
