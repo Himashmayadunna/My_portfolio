@@ -71,6 +71,7 @@ export const STATISTICS = [
 ] as const;
 
 // ── Projects ─────────────────────────────────────────────────
+// ── Projects ─────────────────────────────────────────────────
 export interface Project {
   title: string;
   description: string;
@@ -82,6 +83,10 @@ export interface Project {
   category: "web" | "mobile" | "backend";
   image: string; // visual mock placeholder info
   isFlagship?: boolean;
+  subtitle?: string;
+  mockUrl?: string;
+  caseStudyUrl?: string;
+  stats?: { label: string; value: string; color: string }[];
 }
 
 export const PROJECTS: Project[] = [
@@ -109,6 +114,14 @@ export const PROJECTS: Project[] = [
     github: "https://github.com/himashm/medilex-healthcare",
     demo: "/projects/medilex",
     isFlagship: true,
+    subtitle: "Full Stack ERP",
+    mockUrl: "medilex-healthcare.com",
+    caseStudyUrl: "/projects/medilex",
+    stats: [
+      { label: "DB Tables", value: "20+", color: "bg-blue-500" },
+      { label: "REST APIs", value: "50+", color: "bg-emerald-500" },
+      { label: "SQL Schema", value: "3NF", color: "bg-purple-500" }
+    ]
   },
   {
     title: "Auction Management System",
@@ -116,13 +129,28 @@ export const PROJECTS: Project[] = [
       "A real-world auction management platform built with C# backend services and a Next.js frontend. It supports auction listings, live bidding, status tracking, and role-based management dashboards.",
     techStack: ["C#", "ASP.NET", "Next.js", "TypeScript", "Tailwind CSS"],
     category: "web",
-    image: "linear-gradient(135deg, #7C3AED 0%, #3B82F6 100%)",
+    image: "/AMS/Screenshot 2025-10-22 175051.png",
     challenges: [
       "Designed auction lifecycle logic to safely handle bid timing and winner selection",
       "Connected frontend and backend modules with clear API contracts and validation",
     ],
     github: "https://github.com/himashm/auction-system",
-    demo: "https://auction-management.example.com",
+    demo: "/projects/auction-system",
+    isFlagship: true,
+    subtitle: "C# & Next.js Auction",
+    mockUrl: "auction-management.dev",
+    caseStudyUrl: "/projects/auction-system",
+    stats: [
+      { label: "DB Tables", value: "10+", color: "bg-blue-500" },
+      { label: "C# APIs", value: "15+", color: "bg-emerald-500" },
+      { label: "Live Bids", value: "Real-time", color: "bg-purple-500" }
+    ],
+    screenshots: [
+      "/AMS/Screenshot 2025-10-22 175051.png",
+      "/AMS/Screenshot 2025-10-22 172822.png",
+      "/AMS/Screenshot 2025-10-22 172133.png",
+      "/AMS/Screenshot 2025-10-22 173004.png"
+    ]
   },
   {
     title: "BordLanka",
@@ -130,12 +158,22 @@ export const PROJECTS: Project[] = [
       "A property marketplace platform where owners can list places for rent or sale, and buyers can discover and purchase properties through a streamlined web experience.",
     techStack: ["Next.js", "Node.js", "MongoDB", "JavaScript"],
     category: "web",
-    image: "linear-gradient(135deg, #3B82F6 0%, #6366F1 100%)",
+    image: "/bordlanka.png",
     challenges: [
       "Built role-based flows for sellers and buyers with different permissions",
       "Designed efficient property search and filtering for rent and sale listings",
     ],
     github: "https://github.com/himashm/bordlanka",
+    demo: "/projects/bordlanka",
+    isFlagship: true,
+    subtitle: "Real Estate Marketplace",
+    mockUrl: "bordlanka.lk",
+    caseStudyUrl: "/projects/bordlanka",
+    stats: [
+      { label: "Collections", value: "8+", color: "bg-blue-500" },
+      { label: "Database", value: "MongoDB", color: "bg-emerald-500" },
+      { label: "Auth Flow", value: "JWT Role", color: "bg-purple-500" }
+    ]
   },
   {
     title: "Daily-scope",
@@ -143,13 +181,22 @@ export const PROJECTS: Project[] = [
       "A news platform with category-based reporting, headline-first layouts, and fast server-rendered pages using Next.js for both frontend and backend API endpoints.",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
     category: "web",
-    image: "linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%)",
+    image: "/dailyscope.png",
     challenges: [
       "Structured dynamic news categories and reusable article layouts for consistent UX",
       "Built backend routes in Next.js to handle content delivery and page performance",
     ],
     github: "https://github.com/himashm/daily-scope",
-    demo: "https://dailyscope.example.com",
+    demo: "/projects/daily-scope",
+    isFlagship: true,
+    subtitle: "News & Media Portal",
+    mockUrl: "daily-scope.news",
+    caseStudyUrl: "/projects/daily-scope",
+    stats: [
+      { label: "Page Speed", value: "98/100", color: "bg-blue-500" },
+      { label: "Edge Routes", value: "Vercel", color: "bg-emerald-500" },
+      { label: "Render", value: "ISR Cache", color: "bg-purple-500" }
+    ]
   },
   {
     title: "Car Renting System",
@@ -157,12 +204,22 @@ export const PROJECTS: Project[] = [
       "A mobile car rental application that allows users to browse available vehicles, view rental details, and book cars with a smooth end-to-end Flutter experience.",
     techStack: ["Flutter", "Dart", "Firebase"],
     category: "mobile",
-    image: "linear-gradient(135deg, #10B981 0%, #3B82F6 100%)",
+    image: "/carrent.png",
     challenges: [
       "Built a clean booking flow with date-based availability handling",
       "Designed responsive mobile screens for listing, details, and reservation steps",
     ],
     github: "https://github.com/himashm/car-rent-app",
+    demo: "/projects/car-rent-app",
+    isFlagship: true,
+    subtitle: "Flutter Mobile App",
+    mockUrl: "carrent-app.local",
+    caseStudyUrl: "/projects/car-rent-app",
+    stats: [
+      { label: "App Screens", value: "12+", color: "bg-blue-500" },
+      { label: "Auth Provider", value: "Firebase", color: "bg-emerald-500" },
+      { label: "Database", value: "Firestore", color: "bg-purple-500" }
+    ]
   },
   {
     title: "Microservices API Gateway",
@@ -170,12 +227,22 @@ export const PROJECTS: Project[] = [
       "A secure, backend API gateway designed to route traffic, cache frequent responses, and apply rate-limiting across microservices using Express, Redis, and JWT authentication.",
     techStack: ["Node.js", "Express", "Redis", "JWT", "PostgreSQL"],
     category: "backend",
-    image: "linear-gradient(135deg, #F59E0B 0%, #EF4444 100%)",
+    image: "/api-gateway.png",
     challenges: [
       "Optimized response lookup using Redis memory caching, reducing latency by 75%",
       "Implemented a token bucket algorithm to rate-limit incoming consumer requests",
     ],
     github: "https://github.com/himashm/api-gateway",
+    demo: "/projects/api-gateway",
+    isFlagship: true,
+    subtitle: "Backend Infrastructure",
+    mockUrl: "api-gateway.internal",
+    caseStudyUrl: "/projects/api-gateway",
+    stats: [
+      { label: "Redis Latency", value: "-75%", color: "bg-blue-500" },
+      { label: "Rate Limiter", value: "Token-Bucket", color: "bg-emerald-500" },
+      { label: "DB Engine", value: "Postgres", color: "bg-purple-500" }
+    ]
   },
 ];
 

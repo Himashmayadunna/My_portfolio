@@ -77,22 +77,25 @@ export default function Projects() {
         </div>
 
         {/* Responsive Grid */}
+        {/* Responsive Stack of Flagship Cards */}
         <motion.div
           layout
-          className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+          className="mt-12 grid gap-12 grid-cols-1"
         >
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => {
+            {filteredProjects.map((project, idx) => {
+              const isEven = idx % 2 === 0;
               if (project.isFlagship) {
                 return (
                   <motion.div
                     layout
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
+                    initial={{ opacity: 0, scale: 0.98 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    exit={{ opacity: 0, scale: 0.98 }}
                     transition={{ duration: 0.5 }}
                     key={project.title}
-                    className="col-span-1 md:col-span-2 lg:col-span-3 flex flex-col group relative"
+                    className="flex flex-col group relative"
                   >
                     {/* Animated Border Glow Behind Card */}
                     <div className="absolute -inset-[1px] rounded-[24px] bg-gradient-to-r from-blue-500 via-emerald-400 to-indigo-500 opacity-20 blur-md group-hover:opacity-60 transition duration-700 pointer-events-none" />
@@ -101,8 +104,8 @@ export default function Projects() {
                       
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                         
-                        {/* Project Details Panel (Left 6 Cols) */}
-                        <div className="lg:col-span-6 flex flex-col justify-between h-full space-y-4">
+                        {/* Project Details Panel */}
+                        <div className={`lg:col-span-6 flex flex-col justify-between h-full space-y-4 ${isEven ? "lg:order-1" : "lg:order-2"}`}>
                           <div>
                             {/* Badging */}
                             <div className="flex items-center gap-2 select-none">
@@ -110,20 +113,20 @@ export default function Projects() {
                                 Flagship Project
                               </span>
                               <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-neutral-400 bg-white/5 border border-white/5 px-2 py-0.5 rounded">
-                                Full Stack ERP
+                                {project.subtitle || "Full Stack App"}
                               </span>
                             </div>
-
+ 
                             {/* Project Title */}
                             <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-white leading-tight">
                               {project.title}
                             </h3>
-
+ 
                             {/* Description */}
                             <p className="mt-3 text-xs md:text-sm text-neutral-300 leading-relaxed max-w-xl">
                               {project.description}
                             </p>
-
+ 
                             {/* Tech Badges */}
                             <div className="mt-4 flex flex-wrap gap-1.5">
                               {project.techStack.map((tech) => (
@@ -131,34 +134,30 @@ export default function Projects() {
                               ))}
                             </div>
                           </div>
-
+ 
                           {/* Compact Stats Row */}
-                          <div className="flex items-center gap-4 py-2 border-y border-white/5 select-none text-[11px] text-neutral-400 font-mono">
-                            <div className="flex items-center gap-1.5">
-                              <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-                              <span><strong className="text-white">20+</strong> DB Tables</span>
+                          {project.stats && project.stats.length > 0 && (
+                            <div className="flex items-center gap-4 py-2 border-y border-white/5 select-none text-[11px] text-neutral-400 font-mono">
+                              {project.stats.map((stat, sIdx) => (
+                                <div key={sIdx} className="flex items-center gap-1.5">
+                                  <span className={`h-1.5 w-1.5 rounded-full ${stat.color || "bg-blue-500"}`} />
+                                  <span><strong className="text-white">{stat.value}</strong> {stat.label}</span>
+                                </div>
+                              ))}
                             </div>
-                            <div className="flex items-center gap-1.5">
-                              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                              <span><strong className="text-white">50+</strong> REST APIs</span>
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                              <span className="h-1.5 w-1.5 rounded-full bg-purple-500" />
-                              <span><strong className="text-white">3NF</strong> SQL</span>
-                            </div>
-                          </div>
-
+                          )}
+ 
                           {/* Button Actions */}
                           <div className="flex flex-wrap items-center gap-3 pt-2">
                             <Link
-                              href="/projects/medilex"
+                              href={project.caseStudyUrl || "#"}
                               className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-emerald-600 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white hover:from-blue-500 hover:to-emerald-500 shadow-[0_10px_20px_rgba(59,130,246,0.2)] hover:shadow-[0_15px_30px_rgba(59,130,246,0.35)] transition-all duration-300"
                             >
                               <FileText className="h-4 w-4" />
                               Read Case Study
                               <ArrowRight className="h-4 w-4" />
                             </Link>
-
+ 
                             <div className="flex items-center gap-2">
                               {project.github && (
                                 <a
@@ -172,7 +171,7 @@ export default function Projects() {
                                 </a>
                               )}
                               <Link
-                                href="/projects/medilex#gallery"
+                                href={`${project.caseStudyUrl || ""}/#gallery`}
                                 className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] px-3.5 py-2.5 text-xs font-semibold text-neutral-300 hover:bg-white/5 hover:text-white transition-colors cursor-pointer"
                               >
                                 <ImageIcon className="h-3.5 w-3.5 text-blue-400" />
@@ -181,15 +180,15 @@ export default function Projects() {
                             </div>
                           </div>
                         </div>
-
-                        {/* Widescreen Interactive Image Mockup Column (Right 6 Cols) */}
-                        <div className="lg:col-span-6 flex flex-col justify-center relative">
+ 
+                        {/* Widescreen Interactive Image Mockup Column */}
+                        <div className={`lg:col-span-6 flex flex-col justify-center relative ${isEven ? "lg:order-2" : "lg:order-1"}`}>
                           {/* Browser Window frame with subtle hover transition */}
-                          <Link href="/projects/medilex" className="block select-none">
+                          <Link href={project.caseStudyUrl || "#"} className="block select-none">
                             <div className="relative w-full rounded-2xl overflow-hidden border border-white/10 bg-[#090910] shadow-[0_20px_40px_rgba(0,0,0,0.5)] group/mockup">
                               {/* Ambient hover glow */}
                               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-500/5 via-emerald-500/5 to-indigo-500/5 opacity-0 group-hover/mockup:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
+ 
                               {/* Browser mock window header */}
                               <div className="flex items-center justify-between bg-[#0D0D18] px-3.5 py-2 border-b border-white/5 relative z-20">
                                 <div className="flex items-center gap-1.5">
@@ -198,11 +197,11 @@ export default function Projects() {
                                   <div className="h-1.5 w-1.5 rounded-full bg-emerald-500/80" />
                                 </div>
                                 <div className="h-3.5 w-36 bg-white/5 rounded-[3px] flex items-center justify-center border border-white/5">
-                                  <span className="text-[7px] text-neutral-500 font-mono">medilex-healthcare.com</span>
+                                  <span className="text-[7px] text-neutral-500 font-mono">{project.mockUrl || "localhost:3000"}</span>
                                 </div>
                                 <div className="w-8" />
                               </div>
-
+ 
                               {/* Viewport Screenshot */}
                               <div className="relative h-44 sm:h-52 md:h-64 w-full overflow-hidden bg-neutral-900">
                                 <img
@@ -221,9 +220,9 @@ export default function Projects() {
                             </div>
                           </Link>
                         </div>
-
+ 
                       </div>
-
+ 
                     </div>
                   </motion.div>
                 );
