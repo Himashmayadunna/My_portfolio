@@ -9,6 +9,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string;
   target?: string;
   rel?: string;
+  download?: string;
   children: React.ReactNode;
   magnetic?: boolean;
 }
@@ -65,6 +66,11 @@ export default function Button({
   const baseClasses =
     "inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-300 select-none cursor-pointer";
 
+  const isPdfDownload = Boolean(
+    href && (href.toLowerCase().endsWith(".pdf") || href.toLowerCase().includes("/resume.pdf"))
+  );
+  const downloadName = props.download ?? (isPdfDownload ? "resume.pdf" : undefined);
+
   const variants = {
     primary:
       "bg-gradient-to-r from-[#7C3AED] to-[#A855F7] text-white hover:opacity-95 shadow-[0_0_20px_rgba(124,58,237,0.3)] hover:shadow-[0_0_25px_rgba(124,58,237,0.5)] border border-purple-500/20",
@@ -83,8 +89,9 @@ export default function Button({
   const buttonElement = href ? (
     <a
       href={href}
-      target={target}
-      rel={rel}
+      target={isPdfDownload ? undefined : target}
+      rel={isPdfDownload ? undefined : rel}
+      download={downloadName}
       className={cn(baseClasses, variants[variant], className)}
     >
       {innerContent}
