@@ -1298,7 +1298,7 @@ export default function MedilexCaseStudy() {
               Portfolio
             </Link>
             <a
-              href="https://github.com/himashm/medilex-healthcare"
+              href="https://github.com/Himashmayadunna/Healthcare-And-Inventory-Management-System"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white transition-colors"

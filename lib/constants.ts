@@ -37,7 +37,7 @@ export const HERO = {
     "I'm an undergraduate software engineer at NSBM Green University. I build clean, performant web & mobile applications with a focus on user experience, interactive design, and scalable architecture. Currently seeking internship opportunities to solve complex engineering challenges.",
   cta: {
     projects: "#projects",
-    github: "https://github.com/himashm",
+    github: "https://github.com/Himashmayadunna",
     resume: "/resume.pdf",
     contact: "#contact",
   },
@@ -134,7 +134,7 @@ export const PROJECTS: Project[] = [
       "Designed auction lifecycle logic to safely handle bid timing and winner selection",
       "Connected frontend and backend modules with clear API contracts and validation",
     ],
-    github: "https://github.com/himashm/auction-system",
+    github: "https://github.com/Himashmayadunna/auction-system",
     demo: "/projects/auction-system",
     isFlagship: true,
     subtitle: "C# & Next.js Auction",
@@ -232,7 +232,7 @@ export const PROJECTS: Project[] = [
       "Optimized response lookup using Redis memory caching, reducing latency by 75%",
       "Implemented a token bucket algorithm to rate-limit incoming consumer requests",
     ],
-    github: "https://github.com/himashm/api-gateway",
+    github: "https://github.com/Himashmayadunna/api-gateway",
     demo: "/projects/api-gateway",
     isFlagship: true,
     subtitle: "Backend Infrastructure",
@@ -310,7 +310,7 @@ export const DEVELOPMENT_JOURNEY: JourneyItem[] = [
     title: "Internship Management System",
     description: "Developed a full-stack internship management portal with role-based authentication and company/student management features.",
     techStack: ["React", "Express.js", "Supabase", "Tailwind CSS"],
-    github: "https://github.com/himashm/internship-manager",
+    github: "https://github.com/Himashmayadunna/internship-manager",
     iconType: "database"
   },
   {
@@ -345,6 +345,6 @@ export const CONTACT = {
   email: "himashheshan193@gmail.com",
   phone: "+94754119616",
   location: "577/1A, Henihaththa Biyagama",
-  linkedin: "www.linkedin.com/in/himash-mayadunna-28429529b",
+  linkedin: "https://www.linkedin.com/in/himash-mayadunna-28429529b",
   github: "https://github.com/Himashmayadunna",
 } as const;
