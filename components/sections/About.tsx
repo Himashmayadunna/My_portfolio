@@ -18,10 +18,10 @@ export default function About() {
 
         <GlassCard hoverEffect={false} className="mt-8 overflow-visible">
           <div className="grid gap-10 md:grid-cols-12 md:items-center">
-            
+
             {/* Left Side: Avatar/Illustration */}
             <div className="md:col-span-5 flex flex-col items-center justify-center relative py-6">
-              
+
               {/* Rotating outer rings */}
               <motion.div
                 animate={{ rotate: 360 }}
@@ -108,7 +108,7 @@ export default function About() {
                 </div>
               </div>
             </div>
-            
+
           </div>
         </GlassCard>
       </div>

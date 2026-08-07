@@ -1,149 +1,55 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowLeft,
+  Smartphone,
   Database,
-  Cpu,
   Layout,
-  ArrowRight,
-  ShieldCheck,
-  FileText,
-  ImageIcon,
   Car,
-  Plus,
-  Search,
-  CheckCircle2,
-  AlertTriangle,
-  Clock,
+  Users,
   Briefcase,
   Layers,
-  Award,
-  ChevronRight,
-  Smartphone,
-  Calendar,
-  Sparkles
+  MapPin,
+  CheckCircle2,
+  AlertTriangle,
+  Lightbulb,
+  Search,
+  Globe,
+  Settings,
+  ShieldCheck,
+  Zap,
+  Activity,
+  Cpu,
+  Server
 } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import GlassCard from "@/components/ui/GlassCard";
 
-// Count-up animation helper hook
-function useCountUp(endValue: number, duration: number = 1000) {
-  const [count, setCount] = useState(0);
+// Helper animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
 
-  useEffect(() => {
-    let startTimestamp: number | null = null;
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      setCount(Math.floor(progress * endValue));
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
-    };
-    window.requestAnimationFrame(step);
-  }, [endValue, duration]);
-
-  return count;
-}
-
-const ARCHITECTURE_LAYERS = [
-  {
-    id: "frontend",
-    title: "Flutter Application UI",
-    tech: "Flutter, Dart, Provider / BLoC State Patterns",
-    description: "Multiplatform compilation for iOS and Android. Reusable component layouts utilizing strict pixel layouts and native widgets.",
-    details: [
-      "Custom responsive theme files maintaining accessibility guidelines",
-      "Provider state boundaries updating listing items instantly",
-      "Native calendar picker packages handling booking date matrices",
-      "Smooth micro-interactions rendering asset loading sequences"
-    ]
-  },
-  {
-    id: "api",
-    title: "Firebase Auth & REST Bridges",
-    tech: "Firebase Auth SDK, Google Services",
-    description: "Middleware authenticating device users, managing session storage, and securing API paths with bearer validations.",
-    details: [
-      "Phone and Email secure verification patterns",
-      "Automatic login recovery using cached device credentials",
-      "JWT parsing bridging Flutter clients to custom API routes",
-      "Dynamic device push notifications configured with FCM"
-    ]
-  },
-  {
-    id: "database",
-    title: "Cloud Firestore Store",
-    tech: "Firebase Firestore Database",
-    description: "Flexible document store tracking booking items, users metadata, and vehicle reservation schedules.",
-    details: [
-      "Real-time snapshot streams updating vehicle availability indicators",
-      "Security rules limiting write operations to authenticated owners",
-      "Compound collection queries fetching host vehicles matching dates",
-      "Automated cloud functions cleaning expired reservations"
-    ]
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 }
   }
-];
-
-interface Vehicle {
-  id: string;
-  name: string;
-  pricePerDay: number;
-  type: string;
-  fuel: string;
-}
+};
 
 export default function CarRentCaseStudy() {
-  const [selectedArchLayer, setSelectedArchLayer] = useState("frontend");
-  
-  // Stats Counters
-  const screenCount = useCountUp(12);
-  const usersCount = useCountUp(80);
-  const databaseWrites = useCountUp(99);
-  const syncSpeed = useCountUp(150); // 150ms
-
-  // Simulator State
-  const [selectedCar, setSelectedCar] = useState<string>("1");
-  const [bookingDays, setBookingDays] = useState<number>(3);
-  const [bookingSuccess, setBookingSuccess] = useState<boolean>(false);
-  const [bookingCode, setBookingCode] = useState<string>("");
-
-  const vehicles: Vehicle[] = [
-    { id: "1", name: "Tesla Model S Plaid", pricePerDay: 120, type: "Electric", fuel: "100% Charge" },
-    { id: "2", name: "Porsche 911 GT3", pricePerDay: 220, type: "Sports", fuel: "Petrol" },
-    { id: "3", name: "BMW iX M60", pricePerDay: 150, type: "SUV Electric", fuel: "90% Charge" },
-  ];
-
-  const currentCarObj = vehicles.find((v) => v.id === selectedCar) || vehicles[0];
-  const subtotal = currentCarObj.pricePerDay * bookingDays;
-  const tax = Math.round(subtotal * 0.08);
-  const total = subtotal + tax;
-
-  const handleBookCar = () => {
-    const code = "RES-" + Math.floor(100000 + Math.random() * 900000);
-    setBookingCode(code);
-    setBookingSuccess(true);
-  };
-
-  const handleResetBooking = () => {
-    setBookingSuccess(false);
-    setBookingCode("");
-    setBookingDays(3);
-  };
-
-  const selectedLayer = ARCHITECTURE_LAYERS.find((l) => l.id === selectedArchLayer) || ARCHITECTURE_LAYERS[0];
-
   return (
-    <div className="min-h-screen bg-[#05050B] text-white overflow-x-hidden selection:bg-purple-500/30">
-      {/* Mesh background glows */}
-      <div className="absolute top-0 left-1/4 h-[500px] w-[500px] rounded-full bg-emerald-500/10 blur-[120px] pointer-events-none" />
-      <div className="absolute top-[800px] right-1/4 h-[600px] w-[600px] rounded-full bg-blue-500/5 blur-[150px] pointer-events-none" />
+    <div className="min-h-screen bg-[#050508] text-neutral-300 font-sans selection:bg-rose-500/30 overflow-x-hidden pb-32">
+      {/* Background Ambience */}
+      <div className="fixed top-[-20%] left-[-10%] h-[800px] w-[800px] rounded-full bg-rose-600/5 blur-[150px] pointer-events-none" />
+      <div className="fixed bottom-[-20%] right-[-10%] h-[600px] w-[600px] rounded-full bg-orange-600/5 blur-[150px] pointer-events-none" />
 
-      {/* Navigation Header */}
-      <header className="sticky top-0 z-50 border-b border-white/5 bg-[#05050B]/60 backdrop-blur-xl py-4 px-6 select-none transition-all duration-300">
+      {/* Header */}
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-[#050508]/60 backdrop-blur-xl py-4 px-6 select-none transition-all duration-300">
         <div className="mx-auto max-w-6xl flex items-center justify-between">
           <Link
             href="/"
@@ -153,424 +59,353 @@ export default function CarRentCaseStudy() {
             Back to Portfolio
           </Link>
           <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="h-2 w-2 rounded-full bg-rose-500 animate-pulse" />
             <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 font-mono">
-              Car Renting Case Study
+              RentX Case Study
             </span>
           </div>
         </div>
       </header>
 
-      {/* Hero Banner Section */}
-      <section className="px-6 pt-16 pb-20 relative">
-        <div className="mx-auto max-w-6xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/5 px-4 py-1.5 text-xs font-semibold text-emerald-300 select-none">
-              <Car className="h-3.5 w-3.5 text-emerald-400" />
-              Flutter Mobile Application
-            </div>
-
-            <h1 className="mt-6 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight">
-              Car Renting <br className="hidden sm:inline" />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-blue-400">
-                Reservation App
+      {/* Hero Section */}
+      <section className="px-6 pt-24 pb-16 relative">
+        <div className="mx-auto max-w-4xl text-center">
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
+            <Badge className="mb-6 bg-rose-500/10 text-rose-400 border-rose-500/20">Flutter Mobile Application</Badge>
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight text-white mb-6">
+              RentX. <br className="hidden md:block" />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-rose-400 via-orange-300 to-amber-400">
+                Vehicle Marketplace.
               </span>
             </h1>
-
-            <p className="mx-auto mt-6 max-w-3xl text-base sm:text-lg text-neutral-400 leading-relaxed">
-              A premium mobile booking application engineered with Flutter and Dart, supporting real-time database lookups, secure verification steps, and automated reservation management.
+            <p className="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed">
+              A scalable, cross-platform mobile application developed using Flutter that connects vehicle owners with customers looking to rent vehicles.
             </p>
           </motion.div>
+        </div>
+      </section>
 
-          {/* Metrics */}
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+      {/* Main Content Layout */}
+      <div className="mx-auto max-w-4xl px-6 space-y-24">
+        
+        {/* 1. Project Overview & 2. Problem Statement */}
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+            <Globe className="h-7 w-7 text-rose-400" />
+            1. Project Overview
+          </h2>
+          <div className="prose prose-invert prose-lg text-neutral-300 max-w-none leading-relaxed">
+            <p>
+              RentX is a comprehensive cross-platform mobile application developed using Flutter. It is designed from the ground up to operate as a centralized marketplace that seamlessly connects vehicle owners (sellers) with customers (buyers) searching for short-term or long-term vehicle rentals. 
+            </p>
+            <p>
+              Rather than functioning as a standard listing board, the platform actively manages the entire rental lifecycle. Sellers can dynamically list their vehicles, manage availability calendars, and track their rental income. Conversely, buyers are empowered to search through extensive catalogs, compare real-time pricing and availability, and execute secure bookings for specific rental periods. 
+            </p>
+            <p>
+              The underlying architecture was meticulously engineered with scalability, a clean separation of concerns, and a modern, frictionless user experience in mind. It leverages robust cloud infrastructure to ensure high availability and responsiveness across both iOS and Android platforms simultaneously.
+            </p>
+          </div>
+        </motion.section>
+
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <GlassCard className="border-red-500/20 bg-red-500/5 p-8 md:p-10">
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+              <AlertTriangle className="h-7 w-7 text-red-400" />
+              2. Problem Statement
+            </h2>
+            <div className="prose prose-invert prose-lg text-neutral-300 max-w-none leading-relaxed">
+              <p>
+                In many regions, local vehicle rental businesses and independent vehicle owners still heavily rely on archaic, manual booking methods. The primary avenues for organizing rentals typically involve direct phone calls, disorganized messaging applications, or relying on fragmented social media groups.
+              </p>
+              <p>
+                From the consumer perspective, customers consistently struggle to transparently compare vehicles, verify real-time availability, understand opaque pricing structures, and confidently agree to rental conditions. The lack of a centralized system means buyers spend an excessive amount of time negotiating and verifying details manually.
+              </p>
+              <p>
+                Simultaneously, vehicle owners lack a dedicated, centralized platform to manage their rental operations efficiently. Tracking overlapping schedules, handling customer communications, and verifying identities often become logistical nightmares. RentX was architected explicitly to solve these multifaceted challenges by digitizing and modernizing the entire rental workflow into a single, unified digital marketplace.
+              </p>
+            </div>
+          </GlassCard>
+        </motion.section>
+
+        {/* 3. Objectives & 4. My Role */}
+        <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="grid md:grid-cols-2 gap-8">
+          <GlassCard className="p-8">
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+              <CheckCircle2 className="h-6 w-6 text-emerald-400" />
+              3. Objectives
+            </h2>
+            <p className="text-neutral-300 leading-relaxed mb-4">
+              The primary objective was to transcend the concept of a simple catalog app and build a fully functional, real-world booking ecosystem. 
+            </p>
+            <ul className="space-y-3 text-neutral-400">
+              <li className="flex items-start gap-2"><span className="text-emerald-400 mt-1">▹</span> Develop complex dual-user workflows (buyers vs. sellers).</li>
+              <li className="flex items-start gap-2"><span className="text-emerald-400 mt-1">▹</span> Implement rigorous authentication and role-based access.</li>
+              <li className="flex items-start gap-2"><span className="text-emerald-400 mt-1">▹</span> Design scalable booking validation systems.</li>
+              <li className="flex items-start gap-2"><span className="text-emerald-400 mt-1">▹</span> Create distinct dashboard experiences.</li>
+            </ul>
+          </GlassCard>
+
+          <GlassCard className="p-8 border-rose-500/20">
+            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+              <Briefcase className="h-6 w-6 text-rose-400" />
+              4. My Role
+            </h2>
+            <p className="text-neutral-300 leading-relaxed mb-4">
+              As the sole developer and architect for this project, I owned the end-to-end product lifecycle.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {["UI/UX Design", "Flutter Mobile Development", "Application Architecture", "Firebase Authentication", "Firestore DB Design", "Firebase Storage", "State Management", "Responsive UI"].map(skill => (
+                <Badge key={skill} className="bg-white/5 border-white/10">{skill}</Badge>
+              ))}
+            </div>
+          </GlassCard>
+        </motion.div>
+
+        {/* 5. Research & Planning & 6. Design Process */}
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <h2 className="text-3xl font-bold text-white mb-6">5. Research and Planning</h2>
+          <div className="prose prose-invert prose-lg text-neutral-300 max-w-none leading-relaxed">
+            <p>
+              The foundation of RentX required extensive research into existing transportation and accommodation marketplaces. I analyzed user behaviors across platforms like Turo and Airbnb to understand the cognitive load placed on users during high-friction activities like booking dates and processing verifications.
+            </p>
+            <p>
+              Planning involved meticulously mapping out the entity relationship diagrams for the NoSQL database. Understanding that a NoSQL structure like Firestore requires data duplication for efficient reads, I charted out the read/write paths for fetching vehicle catalogs versus querying a user's specific booking history. I established target users: Vehicle Owners, Customers, Small Rental Businesses, Tourists, and Local Travelers, ensuring the application workflows catered to both B2B and B2C interactions.
+            </p>
+          </div>
+        </motion.section>
+
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <h2 className="text-3xl font-bold text-white mb-6">6. Design Process</h2>
+          <div className="prose prose-invert prose-lg text-neutral-300 max-w-none leading-relaxed">
+            <p>
+              The UI/UX design phase heavily utilized Material Design 3 guidelines to guarantee a native feel across Android devices while maintaining a premium, bespoke aesthetic suitable for iOS. I opted for a highly legible, typography-driven dark theme to reduce eye strain, which is particularly beneficial for users browsing multiple vehicle listings late at night or outdoors.
+            </p>
+            <p>
+              Component reusability was a core tenet of the design phase. I designed standardized vehicle cards, status badges, and interactive date-pickers in Figma before touching the codebase. By establishing a robust design token system (colors, typography, spacing), translating the visual designs into Flutter widget classes was accelerated and guaranteed visual consistency across the entire marketplace.
+            </p>
+          </div>
+        </motion.section>
+
+        {/* 7. System Architecture & 8. Technology Stack */}
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <div className="bg-white/[0.02] border border-white/5 rounded-3xl p-8 md:p-12">
+            <h2 className="text-3xl font-bold text-white mb-8">7. System Architecture</h2>
+            
+            <div className="grid md:grid-cols-3 gap-6 mb-10">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                <Layout className="h-8 w-8 text-rose-400 mb-4" />
+                <h3 className="text-lg font-bold text-white mb-2">Presentation Layer</h3>
+                <p className="text-sm text-neutral-400 leading-relaxed">
+                  Contains reusable widgets, screens, and view models. Built entirely in Flutter, it reacts to state changes and handles user interactions.
+                </p>
+              </div>
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                <Activity className="h-8 w-8 text-orange-400 mb-4" />
+                <h3 className="text-lg font-bold text-white mb-2">Domain & State</h3>
+                <p className="text-sm text-neutral-400 leading-relaxed">
+                  Utilizes reactive state management to bind business logic with the UI. Models are strictly typed using Dart data classes.
+                </p>
+              </div>
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
+                <Server className="h-8 w-8 text-amber-400 mb-4" />
+                <h3 className="text-lg font-bold text-white mb-2">Data & Service Layer</h3>
+                <p className="text-sm text-neutral-400 leading-relaxed">
+                  Abstracts Firebase interactions into dedicated repositories. Handles JSON serialization, asynchronous network calls, and caching.
+                </p>
+              </div>
+            </div>
+
+            <div className="prose prose-invert prose-lg text-neutral-300 max-w-none leading-relaxed">
+              <p>
+                The project organization adheres strictly to a clean architecture philosophy. The folder structure segregates the UI components from the business logic. By isolating the service layer, the application remains agnostic to the underlying backend infrastructure, allowing for easier unit testing and future migrations. Flutter was selected for its unparalleled ability to compile to high-performance native machine code for both iOS and Android from a single codebase, significantly reducing development overhead while maintaining fluid 60FPS animations.
+              </p>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <h2 className="text-3xl font-bold text-white mb-6">8. Technology Stack</h2>
+          <div className="flex flex-wrap gap-4">
             {[
-              { label: "Application Screens", value: `${screenCount}+`, detail: "Designed in Flutter" },
-              { label: "Firebase Accounts", value: `${usersCount}+`, detail: "Secure credentials store" },
-              { label: "Database Consistency", value: `${databaseWrites}%`, detail: "Cloud security checks" },
-              { label: "Database State Sync", value: `<${syncSpeed}ms`, detail: "Real-time query listeners" }
-            ].map((stat, idx) => (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                key={stat.label}
-                className="p-5 rounded-2xl border border-white/5 bg-white/[0.01] backdrop-blur-md relative overflow-hidden group hover:border-emerald-500/20 transition-all duration-300"
-              >
-                <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-emerald-500 to-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-                <span className="block text-3xl font-extrabold text-white font-mono tracking-tight group-hover:text-emerald-400 transition-colors">
-                  {stat.value}
-                </span>
-                <span className="mt-1 block text-xs font-semibold uppercase tracking-wider text-neutral-400">
-                  {stat.label}
-                </span>
-                <span className="mt-2 block text-[10px] text-neutral-500 font-mono">
-                  {stat.detail}
-                </span>
-              </motion.div>
+              { name: "Flutter & Dart", icon: Smartphone },
+              { name: "Firebase Auth", icon: ShieldCheck },
+              { name: "Cloud Firestore", icon: Database },
+              { name: "Firebase Storage", icon: Layers },
+              { name: "Google Maps API", icon: MapPin },
+              { name: "Material Design 3", icon: Layout },
+              { name: "Git & GitHub", icon: Cpu }
+            ].map((tech, i) => (
+              <GlassCard key={i} className="p-4 flex items-center gap-3 pr-6 hover:bg-white/[0.05] transition-colors">
+                <tech.icon className="h-5 w-5 text-rose-400" />
+                <span className="font-bold text-sm text-white">{tech.name}</span>
+              </GlassCard>
             ))}
           </div>
-        </div>
-      </section>
+        </motion.section>
 
-      {/* System Interface Gallery Showcase */}
-      <section id="gallery" className="px-6 py-8 relative select-none">
-        <div className="mx-auto max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative mx-auto rounded-[24px] border border-white/10 bg-neutral-950/60 p-3 backdrop-blur-xl shadow-[0_20px_50px_rgba(16,185,129,0.15)] group max-w-2xl"
-          >
-            <div className="absolute -inset-1 rounded-[24px] bg-gradient-to-r from-emerald-600 via-teal-500 to-blue-500 opacity-20 blur-xl group-hover:opacity-30 transition duration-700 pointer-events-none" />
-            
-            <div className="relative rounded-[16px] overflow-hidden border border-white/5 bg-[#080810]">
-              <div className="flex items-center gap-1.5 bg-[#0D0D18] px-4 py-3 border-b border-white/5">
-                <div className="h-3 w-3 rounded-full bg-rose-500/80" />
-                <div className="h-3 w-3 rounded-full bg-amber-500/80" />
-                <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
-                <span className="text-[11px] font-mono text-neutral-500 ml-4">carrent-flutter-mobile.png</span>
-              </div>
-              <img
-                src="/carrent.png"
-                alt="Car Renting Flutter Mobile UI Preview"
-                className="w-full h-auto object-cover"
-              />
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Project Overview / Challenges / Solution Grid */}
-      <section className="px-6 py-12 border-t border-white/5 bg-white/[0.005]">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Overview */}
-            <GlassCard hoverEffect={false} className="p-6">
-              <div className="h-10 w-10 rounded-lg bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 mb-4">
-                <Briefcase className="h-5 w-5 text-emerald-400" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-3">Project Overview</h3>
-              <p className="text-sm text-neutral-400 leading-relaxed">
-                The Car Renting mobile application enables users to select premium vehicles, calculate multi-day rental reservations, and manage their reservations within an all-in-one Flutter mobile workspace.
-              </p>
-            </GlassCard>
-
-            {/* Problem */}
-            <GlassCard hoverEffect={false} className="p-6 border-red-500/10">
-              <div className="h-10 w-10 rounded-lg bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-4">
-                <AlertTriangle className="h-5 w-5 text-red-400" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-3">The Problem Statement</h3>
-              <p className="text-sm text-neutral-400 leading-relaxed">
-                Ensuring smooth operations when multiple clients attempt to reserve the same vehicle on overlapping schedules. Without solid locking boundaries, mobile databases easily accept duplicate transactions.
-              </p>
-            </GlassCard>
-
-            {/* Solution */}
-            <GlassCard hoverEffect={false} className="p-6 border-emerald-500/10">
-              <div className="h-10 w-10 rounded-lg bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 mb-4">
-                <CheckCircle2 className="h-5 w-5 text-emerald-400" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-3">The Solution Engineered</h3>
-              <p className="text-sm text-neutral-400 leading-relaxed">
-                Structured Firestore rules verifying listing availability conditions before writes. Configured real-time query listeners updating mobile state values dynamically, informing other users of bookings instantly.
-              </p>
-            </GlassCard>
-          </div>
-        </div>
-      </section>
-
-      {/* Interactive System Architecture Section */}
-      <section className="px-6 py-20 border-t border-white/5 relative">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-white">System Architecture & Orchestration</h2>
-            <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-emerald-500 to-blue-500" />
-          </div>
-
-          <div className="grid lg:grid-cols-12 gap-8 items-start">
-            {/* Interactive Selector (Left 7 Cols) */}
-            <div className="lg:col-span-7 space-y-4">
-              <h3 className="text-base font-bold text-neutral-300 uppercase tracking-wider mb-2">
-                Click a Layer to Trace Data Flow
-              </h3>
-              
-              <div className="flex flex-col gap-3 select-none">
-                {ARCHITECTURE_LAYERS.map((layer) => {
-                  const isActive = selectedArchLayer === layer.id;
-                  let gradientBorder = "border-white/5 hover:border-white/20";
-                  let bgGlow = "bg-white/[0.01]";
-                  let iconColor = "text-neutral-500";
-                  let leftBorder = "border-l-4 border-l-transparent";
-
-                  if (isActive) {
-                    bgGlow = "bg-white/[0.03]";
-                    iconColor = "text-emerald-400";
-                    if (layer.id === "frontend") {
-                      gradientBorder = "border-emerald-500/40";
-                      leftBorder = "border-l-4 border-l-emerald-500";
-                    } else if (layer.id === "database") {
-                      gradientBorder = "border-blue-500/40";
-                      leftBorder = "border-l-4 border-l-blue-500";
-                    } else {
-                      gradientBorder = "border-indigo-500/40";
-                      leftBorder = "border-l-4 border-l-indigo-500";
-                    }
-                  }
-
-                  return (
-                    <button
-                      key={layer.id}
-                      onClick={() => setSelectedArchLayer(layer.id)}
-                      className={`w-full text-left p-4 rounded-xl border ${gradientBorder} ${bgGlow} ${leftBorder} transition-all duration-300 flex items-center justify-between group`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className={`p-2 rounded-lg bg-white/5 border border-white/10 group-hover:bg-white/10 transition-colors ${iconColor}`}>
-                          {layer.id === "frontend" && <Smartphone className="h-5 w-5" />}
-                          {layer.id === "api" && <Cpu className="h-5 w-5" />}
-                          {layer.id === "database" && <Database className="h-5 w-5" />}
-                        </div>
-                        <div>
-                          <span className="block font-bold text-white text-sm tracking-wide group-hover:text-emerald-300 transition-colors">
-                            {layer.title}
-                          </span>
-                          <span className="text-xs text-neutral-400 font-mono">
-                            {layer.tech}
-                          </span>
-                        </div>
-                      </div>
-                      <ChevronRight className={`h-5 w-5 text-neutral-500 transition-transform group-hover:text-white ${isActive ? "translate-x-1 text-emerald-400" : ""}`} />
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Code & Details display (Right 5 Cols) */}
-            <div className="lg:col-span-5">
-              <GlassCard hoverEffect={false} className="p-6 border-emerald-500/10 bg-neutral-950/80 backdrop-blur-xl relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-emerald-500 to-indigo-500" />
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                  <Layers className="h-5 w-5 text-emerald-400" />
-                  Details Panel
-                </h3>
-                
-                <p className="mt-4 text-xs text-neutral-300 leading-relaxed font-mono">
-                  {selectedLayer.description}
-                </p>
-
-                <div className="mt-6 space-y-3">
-                  <h4 className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                    Key Features Demonstrated
-                  </h4>
-                  <ul className="space-y-2">
-                    {selectedLayer.details.map((detail, dIdx) => (
-                      <li key={dIdx} className="flex items-start gap-2.5 text-xs text-neutral-400">
-                        <span className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
-                        <span>{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </GlassCard>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Booking Mobile Simulator */}
-      <section className="px-6 py-20 border-t border-white/5 relative">
-        <div className="mx-auto max-w-4xl relative">
-          <div className="mb-10 text-center">
-            <h2 className="text-3xl font-extrabold text-white">Mobile Booking Emulator</h2>
-            <p className="mt-2 text-sm text-neutral-400">
-              Select a vehicle and adjust reservation days to test the mobile app calculations.
+        {/* 9. Database Design */}
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <h2 className="text-3xl font-bold text-white mb-6">9. Database Design</h2>
+          <div className="prose prose-invert prose-lg text-neutral-300 max-w-none leading-relaxed mb-8">
+            <p>
+              Designing a scalable NoSQL database required careful consideration of read-heavy operations. The Cloud Firestore database is organized into distinct, highly optimized collections:
             </p>
           </div>
-
-          <div className="flex justify-center">
-            {/* Mobile Bezels wrapper */}
-            <div className="relative w-80 rounded-[36px] border-4 border-neutral-800 bg-[#090910] p-4 shadow-[0_25px_60px_rgba(0,0,0,0.8)] overflow-hidden">
-              {/* Speaker camera mock */}
-              <div className="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-4 bg-neutral-800 rounded-full z-20 flex items-center justify-center">
-                <div className="w-2 h-2 rounded-full bg-neutral-900 mr-2" />
-                <div className="w-10 h-1 bg-neutral-950 rounded-full" />
+          
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              { title: "users", desc: "Stores profiles, authentication identifiers, and role flags (buyer/seller)." },
+              { title: "vehicles", desc: "Contains comprehensive vehicle metadata, pricing, image URLs, and seller references." },
+              { title: "bookings", desc: "The transactional core; tracks rental periods, statuses (pending, active, completed), and relates users to vehicles." },
+              { title: "favorites", desc: "A sub-collection or linked structure allowing buyers to curate personal shortlists." },
+              { title: "reviews", desc: "Aggregates feedback post-rental, calculating average ratings for sellers and vehicles." },
+              { title: "notifications", desc: "Powers the real-time alert system for booking state changes." }
+            ].map((col, i) => (
+              <div key={i} className="border-l-2 border-rose-500/40 pl-4 py-1">
+                <h4 className="font-bold text-rose-300 text-sm font-mono mb-1">{col.title}</h4>
+                <p className="text-sm text-neutral-400">{col.desc}</p>
               </div>
+            ))}
+          </div>
+        </motion.section>
 
-              {/* Inside Mobile View */}
-              <div className="relative pt-6 min-h-[440px] flex flex-col justify-between font-sans select-none">
-                <AnimatePresence mode="wait">
-                  {!bookingSuccess ? (
-                    <motion.div
-                      key="form"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="space-y-4 flex-1 flex flex-col justify-between"
-                    >
-                      <div>
-                        {/* Header title */}
-                        <div className="flex items-center justify-between border-b border-white/5 pb-2.5 mb-3">
-                          <span className="text-[11px] font-bold text-white uppercase tracking-wider">Reserve Drive</span>
-                          <span className="text-[9px] text-neutral-500 font-mono">NoSQL Sync</span>
-                        </div>
+        {/* 10. Application Workflow & 11. Features */}
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <h2 className="text-3xl font-bold text-white mb-6">10. Application Workflow</h2>
+          <div className="prose prose-invert prose-lg text-neutral-300 max-w-none leading-relaxed">
+            <p>
+              From the moment the user taps the application icon, they are greeted by a branded Splash Screen that asynchronously checks their authentication state. If unauthenticated, the user proceeds through the Firebase Authentication gateway (supporting email/password and social logins). Upon first login, users encounter the crucial Role Selection screen, determining whether the app configures itself for a Buyer Journey or a Seller Journey.
+            </p>
+            <p>
+              <strong>The Buyer Journey:</strong> Buyers land on a visually rich discovery feed showcasing recommended vehicles. They utilize advanced filters (price, vehicle type, location) to narrow their Vehicle Discovery. Tapping a listing opens the detailed view, where they initiate the Booking Flow. They select dates via an interactive calendar, the system validates availability, and they proceed to Booking Confirmation.
+            </p>
+            <p>
+              <strong>The Seller Journey:</strong> Sellers bypass the discovery feed and land directly on their Seller Dashboard. Here, they monitor active rentals, view pending booking requests, and manage their fleet. The Vehicle Listing workflow allows them to upload images directly to Firebase Storage, set pricing rules, and publish their vehicles in real-time to the marketplace. Both roles have access to Profile Management to update personal details and preferences.
+            </p>
+          </div>
+        </motion.section>
 
-                        {/* Car Selector */}
-                        <div className="space-y-2">
-                          <label className="text-[9px] font-bold text-neutral-400 uppercase tracking-wider">Select Vehicle</label>
-                          <div className="space-y-1.5">
-                            {vehicles.map((v) => (
-                              <button
-                                key={v.id}
-                                onClick={() => setSelectedCar(v.id)}
-                                className={`w-full text-left p-2.5 rounded-lg border text-xs transition-colors flex justify-between items-center ${
-                                  selectedCar === v.id
-                                    ? "bg-emerald-950/20 border-emerald-500 text-white"
-                                    : "bg-white/[0.01] border-white/5 text-neutral-400 hover:text-white"
-                                }`}
-                              >
-                                <div>
-                                  <span className="block font-semibold">{v.name}</span>
-                                  <span className="text-[8px] text-neutral-500">{v.type} • {v.fuel}</span>
-                                </div>
-                                <span className="font-mono font-bold">${v.pricePerDay}/d</span>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <GlassCard className="p-8 md:p-12">
+            <h2 className="text-3xl font-bold text-white mb-8">11. Comprehensive Feature Set</h2>
+            <div className="grid md:grid-cols-2 gap-x-8 gap-y-4">
+              {[
+                "Role-Based Navigation (Buyer vs Seller)",
+                "Real-Time Firestore Sync",
+                "Advanced Vehicle Search & Filters",
+                "Dynamic Booking Calendars",
+                "Seller Fleet Management",
+                "Firebase Storage Image Uploads",
+                "Cross-Platform Responsive Design",
+                "Interactive Dark Theme UI",
+                "Automated Push Notifications",
+                "Historical Booking Tracking"
+              ].map((feature, i) => (
+                <div key={i} className="flex items-center gap-3 border-b border-white/5 pb-3">
+                  <Zap className="h-4 w-4 text-rose-400 shrink-0" />
+                  <span className="text-sm font-medium text-neutral-300">{feature}</span>
+                </div>
+              ))}
+            </div>
+          </GlassCard>
+        </motion.section>
 
-                        {/* Days Counter */}
-                        <div className="mt-4 flex items-center justify-between bg-white/[0.01] border border-white/5 p-2 rounded-xl">
-                          <span className="text-[9px] font-bold text-neutral-400 uppercase tracking-wider">Rental Days</span>
-                          <div className="flex items-center gap-3">
-                            <button
-                              onClick={() => setBookingDays((d) => Math.max(d - 1, 1))}
-                              className="h-6 w-6 rounded bg-white/5 border border-white/10 flex items-center justify-center text-white font-bold hover:bg-white/10"
-                            >
-                              -
-                            </button>
-                            <span className="font-mono font-bold text-xs text-white w-4 text-center">{bookingDays}</span>
-                            <button
-                              onClick={() => setBookingDays((d) => Math.min(d + 1, 14))}
-                              className="h-6 w-6 rounded bg-white/5 border border-white/10 flex items-center justify-center text-white font-bold hover:bg-white/10"
-                            >
-                              +
-                            </button>
-                          </div>
-                        </div>
-                      </div>
+        {/* 12. Challenges & 13. Solutions */}
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <h2 className="text-3xl font-bold text-white mb-6">12. Engineering Challenges</h2>
+          <div className="prose prose-invert prose-lg text-neutral-300 max-w-none leading-relaxed">
+            <p>
+              Building a robust marketplace introduces severe technical complexities. The foremost challenge was designing a scalable Firestore database. In relational databases, verifying booking overlaps is a simple SQL query; in NoSQL, it requires careful document modeling to prevent race conditions during booking creation. 
+            </p>
+            <p>
+              Managing the application state across divergent buyer and seller experiences was another hurdle. Mixing state logic with UI code would rapidly degrade performance and maintainability. Furthermore, uploading and caching high-resolution vehicle imagery smoothly across various mobile network speeds demanded a highly optimized Firebase Storage integration.
+            </p>
+          </div>
+        </motion.section>
 
-                      {/* Pricing list and button */}
-                      <div className="mt-4 border-t border-white/5 pt-3 space-y-2">
-                        <div className="flex justify-between text-[10px] text-neutral-400 font-mono">
-                          <span>Subtotal ({bookingDays} days):</span>
-                          <span>${subtotal}</span>
-                        </div>
-                        <div className="flex justify-between text-[10px] text-neutral-400 font-mono">
-                          <span>Insurance & Fees:</span>
-                          <span>${tax}</span>
-                        </div>
-                        <div className="flex justify-between text-xs font-bold text-white font-mono border-t border-white/5 pt-2">
-                          <span>Estimated Total:</span>
-                          <span className="text-emerald-400">${total}</span>
-                        </div>
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <h2 className="text-3xl font-bold text-white mb-6">13. Technical Solutions</h2>
+          <div className="space-y-6">
+            <div className="p-6 rounded-2xl bg-gradient-to-r from-rose-500/10 to-transparent border-l-4 border-rose-500">
+              <h3 className="text-lg font-bold text-white mb-2">Concurrency & Booking Logic</h3>
+              <p className="text-sm text-neutral-300 leading-relaxed">
+                To solve booking collisions, I implemented Firestore Transactions. When a user finalizes a booking, a transaction locks the vehicle document, reads the currently booked dates, verifies no overlaps exist, and only then commits the new booking. This guarantees data integrity even if two users attempt to book the same vehicle simultaneously.
+              </p>
+            </div>
+            
+            <div className="p-6 rounded-2xl bg-gradient-to-r from-orange-500/10 to-transparent border-l-4 border-orange-500">
+              <h3 className="text-lg font-bold text-white mb-2">State Management Architecture</h3>
+              <p className="text-sm text-neutral-300 leading-relaxed">
+                I adopted a strict separation of concerns utilizing Provider/Riverpod (or Bloc). By abstracting all business logic into dedicated ViewModel classes, the UI only rebuilds when specifically notified. This approach allowed me to completely decouple the buyer logic from the seller logic, keeping the application fast and avoiding memory leaks.
+              </p>
+            </div>
 
-                        <button
-                          onClick={handleBookCar}
-                          className="w-full mt-2 py-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 font-bold text-xs uppercase tracking-wider text-white transition-colors cursor-pointer flex items-center justify-center gap-1.5 shadow-[0_4px_12px_rgba(16,185,129,0.3)]"
-                        >
-                          <Sparkles className="h-3.5 w-3.5" />
-                          Reserve Drive
-                        </button>
-                      </div>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      className="space-y-4 flex-1 flex flex-col justify-between text-center pt-8"
-                    >
-                      <div className="flex flex-col items-center">
-                        <div className="h-12 w-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 mb-3 animate-bounce">
-                          <CheckCircle2 className="h-6 w-6" />
-                        </div>
-                        <h4 className="text-sm font-bold text-white">Booking Confirmed!</h4>
-                        <p className="text-[10px] text-neutral-400 mt-1.5 max-w-[200px] mx-auto leading-relaxed">
-                          Your reservation has been synchronized to the Firestore document store.
-                        </p>
-
-                        <div className="mt-6 p-3 bg-[#05050C] border border-white/5 rounded-xl w-full">
-                          <span className="block text-[8px] text-neutral-500 uppercase tracking-wider font-mono">Reservation Code</span>
-                          <span className="text-sm font-extrabold text-white font-mono tracking-widest">{bookingCode}</span>
-                        </div>
-
-                        <div className="mt-4 text-[9px] text-neutral-500 font-mono text-left w-full space-y-1 bg-white/[0.01] p-3 rounded-lg border border-white/5">
-                          <div>• Vehicle: <span className="text-white font-semibold">{currentCarObj.name}</span></div>
-                          <div>• Rent Days: <span className="text-white font-semibold">{bookingDays} days</span></div>
-                          <div>• Net Cost: <span className="text-emerald-400 font-bold">${total}</span></div>
-                        </div>
-                      </div>
-
-                      <button
-                        onClick={handleResetBooking}
-                        className="w-full py-2.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 font-bold text-xs uppercase tracking-wider text-white transition-colors cursor-pointer"
-                      >
-                        Reset Booking
-                      </button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+            <div className="p-6 rounded-2xl bg-gradient-to-r from-amber-500/10 to-transparent border-l-4 border-amber-500">
+              <h3 className="text-lg font-bold text-white mb-2">Image Optimization Pipeline</h3>
+              <p className="text-sm text-neutral-300 leading-relaxed">
+                To ensure responsive layouts regardless of image payloads, I integrated Flutter image compression libraries prior to Firebase Storage uploads. Client-side, I utilized cached network image widgets to store fetched images locally on the device, drastically reducing repetitive network calls and minimizing Firestore bandwidth consumption.
+              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </motion.section>
 
-      {/* Engineering Challenges */}
-      <section className="px-6 py-20 border-t border-white/5 relative">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl font-extrabold text-white">Engineering Solutions</h2>
-            <div className="mx-auto mt-4 h-1 w-16 bg-emerald-500" />
+        {/* 14. Lessons Learned */}
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <GlassCard className="p-8">
+            <h2 className="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+              <Lightbulb className="h-8 w-8 text-yellow-400" />
+              14. Key Learning Outcomes
+            </h2>
+            <div className="prose prose-invert prose-lg text-neutral-300 max-w-none leading-relaxed">
+              <p>
+                Developing RentX fundamentally shifted my perspective on software architecture. I gained profound expertise in structuring complex NoSQL databases and recognized the critical importance of data denormalization. I mastered Firebase Authentication and real-time data streams, learning how to listen to Firestore snapshot changes to deliver a truly reactive user interface.
+              </p>
+              <p>
+                From a frontend perspective, my command over the Flutter framework matured significantly. I learned the nuances of component reusability, constructing dynamic widget trees that adapt flawlessly to varying screen dimensions. Managing a dual-sided marketplace taught me invaluable lessons in project organization and scope management.
+              </p>
+            </div>
+          </GlassCard>
+        </motion.section>
+
+        {/* 15. Future Enhancements */}
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <h2 className="text-3xl font-bold text-white mb-6">15. Future Enhancements</h2>
+          <div className="flex flex-wrap gap-3">
+            {[
+              "Online Payment Gateways",
+              "AI Vehicle Recommendations",
+              "AI Price Prediction",
+              "Live Peer-to-Peer Chat",
+              "KYC Vehicle & Driver Verification",
+              "Google Maps Navigation Routing",
+              "Loyalty & Referral Programs",
+              "Offline Mode Support",
+              "Analytics & Admin Dashboard"
+            ].map(item => (
+              <Badge key={item} className="px-4 py-2 text-sm bg-white/5 border-white/10 hover:border-rose-500/40">
+                {item}
+              </Badge>
+            ))}
           </div>
+        </motion.section>
 
-          <div className="space-y-6">
-            <GlassCard hoverEffect={false} className="p-6 relative border-emerald-500/10">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-emerald-400" />
-                Scheduler Overlapping Resolution
-              </h3>
-              <p className="mt-3 text-sm text-neutral-400 leading-relaxed">
-                <strong>Problem:</strong> Standard date counters allow two bookings to occupy the same slots. Firestore's async nature can lead to race conditions where overlapping listings are written simultaneously.
+        {/* 16. Final Reflection */}
+        <motion.section variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }}>
+          <div className="p-10 md:p-14 rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/5 to-transparent relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500" />
+            <h2 className="text-3xl font-bold text-white mb-6">16. Final Reflection</h2>
+            <div className="prose prose-invert prose-lg text-neutral-300 max-w-none leading-relaxed">
+              <p>
+                RentX stands as a testament to the power of modern cross-platform development. What began as an objective to streamline vehicle rentals evolved into a sophisticated, highly scalable marketplace ecosystem. The final outcome is a performant, visually striking mobile application that genuinely solves real-world logistical friction for both consumers and business operators.
               </p>
-              <p className="mt-2 text-sm text-neutral-300 leading-relaxed">
-                <strong>Solution:</strong> Executed reservation inserts under strict Firebase security rule gates. The database validates transaction documents against a sub-collection of reserved dates, rejecting writes if overlap metrics are identified.
+              <p>
+                This project rigorously strengthened my software engineering foundations. It pushed me beyond crafting beautiful UIs, forcing me to architect secure data layers, manage asynchronous cloud integrations, and enforce robust state management architectures. RentX clearly demonstrates my capability to conceptualize, engineer, and deliver complex, production-ready applications from end to end.
               </p>
-            </GlassCard>
-
-            <GlassCard hoverEffect={false} className="p-6 relative border-emerald-500/10">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <Cpu className="h-5 w-5 text-emerald-400" />
-                Cross-Platform Compilation Optimization
-              </h3>
-              <p className="mt-3 text-sm text-neutral-400 leading-relaxed">
-                <strong>Problem:</strong> Complex widgets caused frame drops on older Android displays, violating smooth scroll experiences.
-              </p>
-              <p className="mt-2 text-sm text-neutral-300 leading-relaxed">
-                <strong>Solution:</strong> Refactored widget trees to avoid nested layout builders. Leveraged const widget declarations, allowing Flutter to skip redundant redraw steps. Standardized state caches, resulting in smooth 60fps renders on target devices.
-              </p>
-            </GlassCard>
+            </div>
           </div>
-        </div>
-      </section>
+        </motion.section>
+
+      </div>
     </div>
   );
 }

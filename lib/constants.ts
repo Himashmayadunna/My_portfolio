@@ -111,7 +111,7 @@ export const PROJECTS: Project[] = [
       "Developed high-performance RESTful APIs in Express.js integrated with Microsoft SQL Server",
       "Implemented secure JWT authentication and granular role-based access control (RBAC)",
     ],
-    github: "https://github.com/himashm/medilex-healthcare",
+    github: "https://github.com/Himashmayadunna/Healthcare-And-Inventory-Management-System",
     demo: "/projects/medilex",
     isFlagship: true,
     subtitle: "Full Stack ERP",
@@ -163,7 +163,7 @@ export const PROJECTS: Project[] = [
       "Built role-based flows for sellers and buyers with different permissions",
       "Designed efficient property search and filtering for rent and sale listings",
     ],
-    github: "https://github.com/himashm/bordlanka",
+    github: "https://github.com/Himashmayadunna/BoardLanka",
     demo: "/projects/bordlanka",
     isFlagship: true,
     subtitle: "Real Estate Marketplace",
@@ -186,7 +186,7 @@ export const PROJECTS: Project[] = [
       "Structured dynamic news categories and reusable article layouts for consistent UX",
       "Built backend routes in Next.js to handle content delivery and page performance",
     ],
-    github: "https://github.com/himashm/daily-scope",
+    github: "https://github.com/Himashmayadunna/Daily-Scope",
     demo: "/projects/daily-scope",
     isFlagship: true,
     subtitle: "News & Media Portal",
@@ -209,7 +209,7 @@ export const PROJECTS: Project[] = [
       "Built a clean booking flow with date-based availability handling",
       "Designed responsive mobile screens for listing, details, and reservation steps",
     ],
-    github: "https://github.com/himashm/car-rent-app",
+    github: "https://github.com/Himashmayadunna/Car_Renting_System",
     demo: "/projects/car-rent-app",
     isFlagship: true,
     subtitle: "Flutter Mobile App",
@@ -301,7 +301,7 @@ export const DEVELOPMENT_JOURNEY: JourneyItem[] = [
     title: "Healthcare & Inventory Management System",
     description: "Built a full-stack healthcare inventory management platform with authentication, inventory tracking, and responsive dashboards.",
     techStack: ["React", "Express.js", "Node.js", "Supabase", "Tailwind CSS"],
-    github: "https://github.com/himashm/healthcare-inventory",
+    github: "https://github.com/Himashmayadunna/Healthcare-And-Inventory-Management-System",
     demo: "https://healthcare-inventory.example.com",
     iconType: "web"
   },
@@ -318,7 +318,7 @@ export const DEVELOPMENT_JOURNEY: JourneyItem[] = [
     title: "TravelMate Mobile Application",
     description: "Created a travel planning application with modern UI and location-based features.",
     techStack: ["Flutter", "Firebase"],
-    github: "https://github.com/himashm/travelmate",
+    github: "https://github.com/Himashmayadunna/LK_Travelmate_new",
     iconType: "mobile"
   }
 ];
@@ -345,6 +345,6 @@ export const CONTACT = {
   email: "himashheshan193@gmail.com",
   phone: "+94754119616",
   location: "577/1A, Henihaththa Biyagama",
-  linkedin: "https://linkedin.com/in/himash-mayadunna",
-  github: "https://github.com/himashm",
+  linkedin: "www.linkedin.com/in/himash-mayadunna-28429529b",
+  github: "https://github.com/Himashmayadunna",
 } as const;
