@@ -1,23 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import {
   ArrowLeft,
   Smartphone,
   Database,
   Layout,
-  Car,
-  Users,
   Briefcase,
   Layers,
   MapPin,
   CheckCircle2,
   AlertTriangle,
   Lightbulb,
-  Search,
   Globe,
-  Settings,
   ShieldCheck,
   Zap,
   Activity,
@@ -28,12 +24,12 @@ import Badge from "@/components/ui/Badge";
 import GlassCard from "@/components/ui/GlassCard";
 
 // Helper animation variants
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };
 
-const staggerContainer = {
+const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -234,12 +230,15 @@ export default function CarRentCaseStudy() {
               { name: "Google Maps API", icon: MapPin },
               { name: "Material Design 3", icon: Layout },
               { name: "Git & GitHub", icon: Cpu }
-            ].map((tech, i) => (
-              <GlassCard key={i} className="p-4 flex items-center gap-3 pr-6 hover:bg-white/[0.05] transition-colors">
-                <tech.icon className="h-5 w-5 text-rose-400" />
-                <span className="font-bold text-sm text-white">{tech.name}</span>
-              </GlassCard>
-            ))}
+            ].map((tech, i) => {
+              const Icon = tech.icon;
+              return (
+                <GlassCard key={i} className="p-4 flex items-center gap-3 pr-6 hover:bg-white/[0.05] transition-colors">
+                  <Icon className="h-5 w-5 text-rose-400" />
+                  <span className="font-bold text-sm text-white">{tech.name}</span>
+                </GlassCard>
+              );
+            })}
           </div>
         </motion.section>
 
