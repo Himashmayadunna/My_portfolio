@@ -221,29 +221,6 @@ export const PROJECTS: Project[] = [
       { label: "Database", value: "Firestore", color: "bg-purple-500" }
     ]
   },
-  {
-    title: "Microservices API Gateway",
-    description:
-      "A secure, backend API gateway designed to route traffic, cache frequent responses, and apply rate-limiting across microservices using Express, Redis, and JWT authentication.",
-    techStack: ["Node.js", "Express", "Redis", "JWT", "PostgreSQL"],
-    category: "backend",
-    image: "/api-gateway.png",
-    challenges: [
-      "Optimized response lookup using Redis memory caching, reducing latency by 75%",
-      "Implemented a token bucket algorithm to rate-limit incoming consumer requests",
-    ],
-    github: "https://github.com/Himashmayadunna/api-gateway",
-    demo: "/projects/api-gateway",
-    isFlagship: true,
-    subtitle: "Backend Infrastructure",
-    mockUrl: "api-gateway.internal",
-    caseStudyUrl: "/projects/api-gateway",
-    stats: [
-      { label: "Redis Latency", value: "-75%", color: "bg-blue-500" },
-      { label: "Rate Limiter", value: "Token-Bucket", color: "bg-emerald-500" },
-      { label: "DB Engine", value: "Postgres", color: "bg-purple-500" }
-    ]
-  },
 ];
 
 // ── Engineering Challenges ───────────────────────────────────
