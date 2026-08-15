@@ -207,6 +207,8 @@ export default function Projects() {
                                 <img
                                   src={project.image}
                                   alt={`${project.title} Dashboard Widescreen Preview`}
+                                  loading="lazy"
+                                  decoding="async"
                                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/mockup:scale-[1.02]"
                                 />
                                 {/* Case Study hover overlay button */}
@@ -266,6 +268,8 @@ export default function Projects() {
                           <img
                             src={project.image}
                             alt={project.title}
+                            loading="lazy"
+                            decoding="async"
                             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover/viewport:scale-105"
                           />
                         )}

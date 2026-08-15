@@ -47,28 +47,33 @@ const JavaIcon = () => (
 );
 
 export default function LoadingScreen() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Disable scrolling when the splash screen is active
-    if (typeof document !== "undefined") {
-      document.body.style.overflow = "hidden";
+    // Check if user already saw the splash screen during this session
+    const hasVisited = sessionStorage.getItem("portfolio_intro_seen");
+    if (hasVisited) {
+      return;
     }
+
+    setIsVisible(true);
+
+    // Disable scrolling while splash screen is active
+    document.body.style.overflow = "hidden";
 
     const timer = setTimeout(() => {
       setIsVisible(false);
-      if (typeof document !== "undefined") {
-        document.body.style.overflow = "";
-      }
-    }, 2500);
+      document.body.style.overflow = "";
+      sessionStorage.setItem("portfolio_intro_seen", "true");
+    }, 1900);
 
     return () => {
       clearTimeout(timer);
-      if (typeof document !== "undefined") {
-        document.body.style.overflow = "";
-      }
+      document.body.style.overflow = "";
     };
   }, []);
+
+  if (!isVisible) return null;
 
   return (
     <AnimatePresence>
@@ -77,7 +82,7 @@ export default function LoadingScreen() {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            transition: { duration: 0.6, ease: "easeInOut" },
+            transition: { duration: 0.5, ease: "easeInOut" },
           }}
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#05050B] overflow-hidden"
         >
@@ -90,35 +95,35 @@ export default function LoadingScreen() {
             }}
           />
 
-          {/* Vercel-inspired Dark Mesh Background */}
-          <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none">
+          {/* Hardware-accelerated Mesh Background */}
+          <div className="absolute inset-0 -z-20 overflow-hidden pointer-events-none transform-gpu">
             {/* Deep Indigo Mesh Orb */}
             <motion.div
               animate={{
-                x: [-20, 20, -20],
-                y: [-15, 15, -15],
-                scale: [1, 1.08, 1],
+                x: [-15, 15, -15],
+                y: [-10, 10, -10],
+                scale: [1, 1.05, 1],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-purple-900/15 blur-[120px] mix-blend-screen transform-gpu will-change-transform"
+            />
+            {/* Deep Blue Mesh Orb */}
+            <motion.div
+              animate={{
+                x: [15, -15, 15],
+                y: [10, -10, 10],
+                scale: [1, 1.03, 1],
               }}
               transition={{
                 duration: 10,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-purple-900/10 blur-[130px] mix-blend-screen"
-            />
-            {/* Deep Blue Mesh Orb */}
-            <motion.div
-              animate={{
-                x: [20, -20, 20],
-                y: [15, -15, 15],
-                scale: [1, 1.04, 1],
-              }}
-              transition={{
-                duration: 12,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[800px] h-[800px] rounded-full bg-blue-900/10 blur-[150px] mix-blend-screen"
+              className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[700px] h-[700px] rounded-full bg-blue-900/15 blur-[130px] mix-blend-screen transform-gpu will-change-transform"
             />
           </div>
 
@@ -131,35 +136,34 @@ export default function LoadingScreen() {
               visible: {
                 opacity: 1,
                 transition: {
-                  staggerChildren: 0.12,
-                  delayChildren: 0.1,
+                  staggerChildren: 0.1,
+                  delayChildren: 0.05,
                 },
               },
             }}
-            className="flex flex-col items-center px-6"
+            className="flex flex-col items-center px-6 transform-gpu"
           >
             {/* Central Monogram Badge */}
             <motion.div
               variants={{
-                hidden: { scale: 0.8, opacity: 0, filter: "blur(8px)" },
+                hidden: { scale: 0.8, opacity: 0 },
                 visible: {
                   scale: 1,
                   opacity: 1,
-                  filter: "blur(0px)",
-                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
-              className="relative w-28 h-28 flex items-center justify-center rounded-full bg-white/[0.015] border border-white/10 backdrop-blur-xl shadow-[0_0_50px_rgba(168,85,247,0.15)] select-none mb-8"
+              className="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center rounded-full bg-white/[0.015] border border-white/10 backdrop-blur-xl shadow-[0_0_50px_rgba(168,85,247,0.15)] select-none mb-6"
             >
               {/* Slow Rotating Dashed Edge Ring */}
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 rounded-full border border-dashed border-purple-500/30"
+                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 rounded-full border border-dashed border-purple-500/30 will-change-transform"
               />
 
               {/* HM Monogram Text */}
-              <span className="text-3xl font-extrabold tracking-widest bg-gradient-to-b from-white to-neutral-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(168,85,247,0.45)]">
+              <span className="text-2xl sm:text-3xl font-extrabold tracking-widest bg-gradient-to-b from-white to-neutral-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(168,85,247,0.45)]">
                 HM
               </span>
 
@@ -169,26 +173,22 @@ export default function LoadingScreen() {
                   scale: [0.95, 1.05, 0.95],
                   opacity: [0.35, 0.55, 0.35],
                 }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-1.5 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-full blur-md -z-10"
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-1.5 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-full blur-md -z-10 transform-gpu"
               />
             </motion.div>
 
             {/* Himash Mayadunna */}
             <motion.h1
               variants={{
-                hidden: { opacity: 0, y: 12, filter: "blur(8px)" },
+                hidden: { opacity: 0, y: 10 },
                 visible: {
                   opacity: 1,
                   y: 0,
-                  filter: "blur(0px)",
-                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
-              style={{
-                textShadow: "0 0 35px rgba(168, 85, 247, 0.2), 0 0 70px rgba(59, 130, 246, 0.1)",
-              }}
-              className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-2 font-sans select-none text-center"
+              className="text-2xl sm:text-4xl font-bold tracking-tight text-white mb-2 font-sans select-none text-center"
             >
               Himash Mayadunna
             </motion.h1>
@@ -196,51 +196,46 @@ export default function LoadingScreen() {
             {/* Software Engineering Undergraduate */}
             <motion.p
               variants={{
-                hidden: { opacity: 0, y: 8, filter: "blur(4px)" },
+                hidden: { opacity: 0, y: 6 },
                 visible: {
                   opacity: 0.8,
                   y: 0,
-                  filter: "blur(0px)",
-                  transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+                  transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
-              className="text-xs md:text-sm font-semibold tracking-wide text-neutral-400 text-center select-none"
+              className="text-xs sm:text-sm font-semibold tracking-wide text-neutral-400 text-center select-none"
             >
               Software Engineering Undergraduate
             </motion.p>
 
-
-
-            {/* ── Professional Horizontal Row of Tech Icons ── */}
+            {/* Tech Icons Row */}
             <motion.div
               variants={{
-                hidden: { opacity: 0, y: 10, filter: "blur(4px)" },
+                hidden: { opacity: 0, y: 8 },
                 visible: {
                   opacity: 1,
                   y: 0,
-                  filter: "blur(0px)",
-                  transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+                  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
                 },
               }}
-              className="flex items-center justify-center gap-5 mt-7 px-5 py-2.5 rounded-2xl border border-white/5 bg-white/[0.01] backdrop-blur-md"
+              className="flex items-center justify-center gap-4 sm:gap-5 mt-6 px-4 py-2 rounded-2xl border border-white/5 bg-white/[0.01]"
             >
-              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300" title="React"><ReactIcon /></div>
-              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300" title="Next.js"><NextjsIcon /></div>
-              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300" title="Node.js"><NodejsIcon /></div>
-              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300" title="Express.js"><ExpressIcon /></div>
-              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300" title="Supabase"><SupabaseIcon /></div>
-              <div className="opacity-60 hover:opacity-100 transition-opacity duration-300" title="Java"><JavaIcon /></div>
+              <div className="opacity-60 hover:opacity-100 transition-opacity" title="React"><ReactIcon /></div>
+              <div className="opacity-60 hover:opacity-100 transition-opacity" title="Next.js"><NextjsIcon /></div>
+              <div className="opacity-60 hover:opacity-100 transition-opacity" title="Node.js"><NodejsIcon /></div>
+              <div className="opacity-60 hover:opacity-100 transition-opacity" title="Express.js"><ExpressIcon /></div>
+              <div className="opacity-60 hover:opacity-100 transition-opacity" title="Supabase"><SupabaseIcon /></div>
+              <div className="opacity-60 hover:opacity-100 transition-opacity" title="Java"><JavaIcon /></div>
             </motion.div>
-
           </motion.div>
 
-          {/* Thin Animated Gradient Loading Line at the Bottom (2.5 seconds) */}
+          {/* Loading Progress Line */}
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             style={{ originX: 0 }}
-            transition={{ duration: 2.5, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 z-[110]"
+            transition={{ duration: 1.9, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-500 z-[110] transform-gpu will-change-transform"
           />
         </motion.div>
       )}

@@ -1,18 +1,22 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
-import { DEVELOPMENT_JOURNEY } from "@/lib/constants";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { JOURNEY_TRACKS, JourneyItem } from "@/lib/constants";
 import SectionHeading from "@/components/ui/SectionHeading";
 import GlassCard from "@/components/ui/GlassCard";
 import Badge from "@/components/ui/Badge";
-import { Globe, Smartphone, Database, ExternalLink } from "lucide-react";
-
-const icons = {
-  web: Globe,
-  mobile: Smartphone,
-  database: Database,
-};
+import {
+  Globe,
+  Smartphone,
+  ArrowDown,
+  ArrowRight,
+  FileText,
+  Sparkles,
+  Layers,
+  Code2
+} from "lucide-react";
+import Link from "next/link";
 
 const Github = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -29,134 +33,275 @@ const Github = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+type FilterMode = "all" | "web" | "mobile";
+
 export default function Journey() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Track scroll within this section
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end center"],
-  });
-
-  const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
+  const [activeTab, setActiveTab] = useState<FilterMode>("all");
 
   return (
     <section id="journey" className="px-6 py-24 relative overflow-hidden">
-      <div className="mx-auto max-w-5xl">
+      {/* Background glowing orbs */}
+      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-600/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 bg-emerald-600/5 rounded-full blur-[140px] pointer-events-none" />
+
+      <div className="mx-auto max-w-6xl">
         <SectionHeading
           title="Development Journey"
-          subtitle="Building practical software solutions through continuous learning and hands-on projects."
+          subtitle="A structured roadmap of my engineering evolution across Web Applications and Mobile Systems."
         />
 
-        <div ref={containerRef} className="relative mt-16 pb-12">
-          {/* Timeline center line background */}
-          <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-white/5 md:left-1/2 md:-translate-x-1/2" />
+        {/* View mode buttons for mobile / quick filtering */}
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 select-none">
+          {[
+            { label: "All Tracks (Side by Side)", value: "all" as const },
+            { label: "Web Applications", value: "web" as const, icon: Globe },
+            { label: "Mobile Apps", value: "mobile" as const, icon: Smartphone },
+          ].map((tab) => {
+            const isActive = activeTab === tab.value;
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.value}
+                onClick={() => setActiveTab(tab.value)}
+                className={`relative flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${
+                  isActive
+                    ? "text-white shadow-lg"
+                    : "text-neutral-400 hover:text-white border border-white/5 bg-white/[0.02]"
+                }`}
+              >
+                {Icon && <Icon className="w-3.5 h-3.5" />}
+                <span className="relative z-10">{tab.label}</span>
+                {isActive && (
+                  <motion.div
+                    layoutId="activeJourneyTab"
+                    className="absolute inset-0 rounded-full bg-gradient-to-r from-[#3B82F6] via-[#6366F1] to-[#10B981]"
+                    transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                  />
+                )}
+              </button>
+            );
+          })}
+        </div>
 
-          {/* Animated Timeline fill line */}
-          <motion.div
-            style={{ scaleY }}
-            className="absolute left-4 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#7C3AED] via-[#3B82F6] to-[#A855F7] origin-top md:left-1/2 md:-translate-x-1/2 shadow-[0_0_8px_rgba(59,130,246,0.5)]"
-          />
-
-          <div className="space-y-12">
-            {DEVELOPMENT_JOURNEY.map((item, idx) => {
-              const isEven = idx % 2 === 0;
-              const IconComponent = icons[item.iconType];
-
-              return (
-                <div
-                  key={idx}
-                  className="relative grid grid-cols-1 md:grid-cols-2 md:gap-12"
-                >
-                  {/* Timeline Pin Node */}
-                  <div className="absolute left-4 md:left-1/2 h-8 w-8 -translate-x-[15px] md:-translate-x-1/2 rounded-full border border-white/10 bg-[#05050B] z-20 flex items-center justify-center text-[#7C3AED] shadow-[0_0_15px_rgba(124,58,237,0.35)] select-none">
-                    <IconComponent className="h-4 w-4" />
+        {/* Dual Track Grid Container */}
+        <div className="mt-14 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start">
+          
+          {/* ── TRACK 1: WEB APPLICATION ────────────────────────── */}
+          {(activeTab === "all" || activeTab === "web") && (
+            <motion.div
+              layout
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className={`flex flex-col ${
+                activeTab === "web" ? "lg:col-span-2 max-w-3xl mx-auto w-full" : ""
+              }`}
+            >
+              {/* Column Header */}
+              <div className="relative p-6 rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-950/40 via-[#060B18]/90 to-[#040810] shadow-[0_10px_30px_rgba(59,130,246,0.15)] mb-8 flex items-center justify-between">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+                    <Globe className="w-5 h-5" />
                   </div>
-
-                  {/* Left Column Content */}
-                  <div
-                    className={`pl-12 md:pl-0 ${
-                      isEven ? "md:text-right md:pr-12" : "md:col-start-2 md:pl-12"
-                    }`}
-                  >
-                    <motion.div
-                      initial={{ opacity: 0, x: isEven ? -40 : 40 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-60px" }}
-                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                      <GlassCard hoverEffect={true} className="p-6">
-                        {/* Meta information */}
-                        <div className={`space-y-1 flex flex-col ${
-                          isEven ? "md:items-end" : "items-start"
-                        }`}>
-                          <span className="text-xs font-mono font-bold text-[#3B82F6] uppercase tracking-wider">
-                            {item.year}
-                          </span>
-                          <h3 className="text-xl font-bold text-white tracking-wide">
-                            {item.title}
-                          </h3>
-                        </div>
-
-                        {/* Description */}
-                        <p className={`mt-3 text-sm text-neutral-400 leading-relaxed text-left ${
-                          isEven ? "md:text-right" : "text-left"
-                        }`}>
-                          {item.description}
-                        </p>
-
-                        {/* Technology Badges */}
-                        <div className={`mt-4 flex flex-wrap gap-1.5 ${
-                          isEven ? "md:justify-end" : "justify-start"
-                        }`}>
-                          {item.techStack.map((tech) => (
-                            <Badge key={tech}>{tech}</Badge>
-                          ))}
-                        </div>
-
-                        {/* Links */}
-                        <div className={`mt-6 pt-4 border-t border-white/5 flex items-center gap-4 select-none text-xs ${
-                          isEven ? "md:justify-end" : "justify-start"
-                        }`}>
-                          {item.github && (
-                            <a
-                              href={item.github}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-neutral-400 hover:text-white transition-colors cursor-pointer"
-                            >
-                              <Github className="h-4 w-4" />
-                              GitHub
-                            </a>
-                          )}
-                          {item.demo && (
-                            <a
-                              href={item.demo}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 text-[#3B82F6] hover:text-[#6366F1] transition-colors font-semibold cursor-pointer"
-                            >
-                              <ExternalLink className="h-4 w-4" />
-                              Live Demo
-                            </a>
-                          )}
-                        </div>
-                      </GlassCard>
-                    </motion.div>
+                  <div>
+                    <h3 className="text-xl font-extrabold text-white tracking-tight">
+                      Web Application
+                    </h3>
+                    <p className="text-xs text-blue-300/80 font-mono">
+                      Full-Stack & Distributed Web Architecture
+                    </p>
                   </div>
-
-                  {/* Dummy columns to retain grid spacing on md/lg */}
-                  <div className="hidden md:block" />
                 </div>
-              );
-            })}
-          </div>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 rounded-full">
+                  {JOURNEY_TRACKS.web.length} Milestones
+                </span>
+              </div>
+
+              {/* Connected Flow List */}
+              <div className="flex flex-col">
+                {JOURNEY_TRACKS.web.map((project, idx) => (
+                  <div key={project.id} className="flex flex-col">
+                    <JourneyCard item={project} trackType="web" />
+                    
+                    {/* Downward Connector Arrow (as drawn in diagram) */}
+                    {idx < JOURNEY_TRACKS.web.length - 1 && (
+                      <ConnectorArrow trackColor="blue" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* ── TRACK 2: MOBILE APP ─────────────────────────────── */}
+          {(activeTab === "all" || activeTab === "mobile") && (
+            <motion.div
+              layout
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className={`flex flex-col ${
+                activeTab === "mobile" ? "lg:col-span-2 max-w-3xl mx-auto w-full" : ""
+              }`}
+            >
+              {/* Column Header */}
+              <div className="relative p-6 rounded-2xl border border-emerald-500/20 bg-gradient-to-br from-emerald-950/40 via-[#051410]/90 to-[#030A08] shadow-[0_10px_30px_rgba(16,185,129,0.15)] mb-8 flex items-center justify-between">
+                <div className="flex items-center gap-3.5">
+                  <div className="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                    <Smartphone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-extrabold text-white tracking-tight">
+                      Mobile App.
+                    </h3>
+                    <p className="text-xs text-emerald-300/80 font-mono">
+                      Cross-Platform & Native Mobile Ecosystems
+                    </p>
+                  </div>
+                </div>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
+                  {JOURNEY_TRACKS.mobile.length} Milestones
+                </span>
+              </div>
+
+              {/* Connected Flow List */}
+              <div className="flex flex-col">
+                {JOURNEY_TRACKS.mobile.map((project, idx) => (
+                  <div key={project.id} className="flex flex-col">
+                    <JourneyCard item={project} trackType="mobile" />
+                    
+                    {/* Downward Connector Arrow (as drawn in diagram) */}
+                    {idx < JOURNEY_TRACKS.mobile.length - 1 && (
+                      <ConnectorArrow trackColor="emerald" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
         </div>
       </div>
     </section>
+  );
+}
+
+// ── Journey Card Component ─────────────────────────────────────
+function JourneyCard({
+  item,
+  trackType,
+}: {
+  item: JourneyItem;
+  trackType: "web" | "mobile";
+}) {
+  const isWeb = trackType === "web";
+  const glowColor = isWeb ? "group-hover:border-blue-500/40" : "group-hover:border-emerald-500/40";
+  const badgeGradient = isWeb
+    ? "from-blue-500/15 to-indigo-500/15 text-blue-300 border-blue-500/30"
+    : "from-emerald-500/15 to-teal-500/15 text-emerald-300 border-emerald-500/30";
+
+  return (
+    <motion.div
+      whileHover={{ y: -4 }}
+      transition={{ duration: 0.3 }}
+      className="group relative"
+    >
+      <div className={`p-6 rounded-2xl border border-white/10 bg-[#080811]/90 backdrop-blur-xl transition-all duration-300 shadow-lg ${glowColor}`}>
+        
+        {/* Top Header Row */}
+        <div className="flex items-start justify-between gap-4 select-none">
+          <div className="flex items-center gap-2.5">
+            <span className={`px-2.5 py-1 rounded-md text-[11px] font-mono font-bold bg-gradient-to-r border ${badgeGradient}`}>
+              {item.step}
+            </span>
+            <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider">
+              {item.subtitle}
+            </span>
+          </div>
+
+          {/* Quick Case Study Badge */}
+          {item.caseStudyUrl && (
+            <Link
+              href={item.caseStudyUrl}
+              className="text-[11px] font-semibold text-neutral-400 group-hover:text-white flex items-center gap-1 transition-colors"
+            >
+              <FileText className="w-3.5 h-3.5 text-blue-400" />
+              <span className="hidden sm:inline">Case Study</span>
+            </Link>
+          )}
+        </div>
+
+        {/* Project Title */}
+        <h4 className="mt-3 text-lg sm:text-xl font-bold text-white tracking-wide group-hover:text-blue-300 transition-colors">
+          {item.title}
+        </h4>
+
+        {/* Description */}
+        <p className="mt-2 text-xs sm:text-sm text-neutral-300 leading-relaxed">
+          {item.description}
+        </p>
+
+        {/* Tech Badges */}
+        <div className="mt-4 flex flex-wrap gap-1.5">
+          {item.techStack.map((tech) => (
+            <Badge key={tech}>{tech}</Badge>
+          ))}
+        </div>
+
+        {/* Footer Links */}
+        <div className="mt-5 pt-3.5 border-t border-white/5 flex items-center justify-between select-none">
+          {item.github ? (
+            <a
+              href={item.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors cursor-pointer group/link"
+            >
+              <Github className="h-3.5 w-3.5" />
+              <span>GitHub</span>
+            </a>
+          ) : <div />}
+
+          {item.caseStudyUrl && (
+            <Link
+              href={item.caseStudyUrl}
+              className={`inline-flex items-center gap-1.5 text-xs font-semibold transition-colors ${
+                isWeb
+                  ? "text-blue-400 hover:text-blue-300"
+                  : "text-emerald-400 hover:text-emerald-300"
+              }`}
+            >
+              <span>Explore Project</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          )}
+        </div>
+
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Connector Arrow Component ──────────────────────────────────
+function ConnectorArrow({ trackColor }: { trackColor: "blue" | "emerald" }) {
+  const isBlue = trackColor === "blue";
+  const lineColor = isBlue ? "from-blue-500/40 via-indigo-500/40 to-blue-500/40" : "from-emerald-500/40 via-teal-500/40 to-emerald-500/40";
+  const arrowBg = isBlue ? "bg-blue-500/10 border-blue-500/30 text-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.3)]" : "bg-emerald-500/10 border-emerald-500/30 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.3)]";
+
+  return (
+    <div className="my-2.5 flex flex-col items-center select-none">
+      {/* Top Connector Line */}
+      <div className={`h-4 w-[2px] bg-gradient-to-b ${lineColor}`} />
+      
+      {/* Downward Pulse Arrow Icon */}
+      <div className={`p-1.5 rounded-full border ${arrowBg} my-0.5 transition-transform hover:scale-110`}>
+        <ArrowDown className="w-3.5 h-3.5 animate-pulse" />
+      </div>
+
+      {/* Bottom Connector Line */}
+      <div className={`h-4 w-[2px] bg-gradient-to-b ${lineColor}`} />
+    </div>
   );
 }

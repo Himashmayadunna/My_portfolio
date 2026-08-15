@@ -221,6 +221,29 @@ export const PROJECTS: Project[] = [
       { label: "Database", value: "Firestore", color: "bg-purple-500" }
     ]
   },
+  {
+    title: "LK TravelMate",
+    description:
+      "An AI-powered mobile travel assistant designed specifically for exploring Sri Lanka with personalized AI recommendations and integrated map navigation.",
+    techStack: ["Flutter", "Dart", "Firebase", "Gemini API", "Google Maps"],
+    category: "mobile",
+    image: "/lktravelmate.png",
+    challenges: [
+      "Structured user inputs into strict prompt rules to generate personalized AI travel itineraries.",
+      "Organized a complex UI into a simple journey: discover → plan → explore → navigate.",
+    ],
+    github: "https://github.com/Himashmayadunna/LK_Travelmate_new",
+    demo: "/projects/lktravelmate",
+    isFlagship: true,
+    subtitle: "AI Travel Assistant",
+    mockUrl: "lktravelmate.app",
+    caseStudyUrl: "/projects/lktravelmate",
+    stats: [
+      { label: "AI Engine", value: "Gemini", color: "bg-emerald-500" },
+      { label: "Auth & DB", value: "Firebase", color: "bg-blue-500" },
+      { label: "Platform", value: "Flutter", color: "bg-purple-500" }
+    ]
+  },
 ];
 
 // ── Engineering Challenges ───────────────────────────────────
@@ -261,43 +284,95 @@ export const CHALLENGES: Challenge[] = [
   },
 ];
 
-// ── Development Journey ──────────────────────────────────────
 export interface JourneyItem {
-  year: string;
+  id: string;
+  step: string;
   title: string;
+  subtitle: string;
   description: string;
   techStack: string[];
   github?: string;
+  caseStudyUrl?: string;
   demo?: string;
-  iconType: "web" | "mobile" | "database";
+  category: "web" | "mobile";
 }
 
+export const JOURNEY_TRACKS = {
+  web: [
+    {
+      id: "daily-scope",
+      step: "01",
+      title: "Daily-scope",
+      subtitle: "News & Media Portal",
+      description: "Dynamic news reporting platform built with Next.js featuring categorized feeds and server-rendered speed.",
+      techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
+      github: "https://github.com/Himashmayadunna/Daily-Scope",
+      caseStudyUrl: "/projects/daily-scope",
+      category: "web" as const,
+    },
+    {
+      id: "auction-management",
+      step: "02",
+      title: "Auction Management System",
+      subtitle: "C# & Next.js Auction Platform",
+      description: "Real-world auction lifecycle application with C# ASP.NET backend services, live bidding logic, and role management.",
+      techStack: ["C#", "ASP.NET", "Next.js", "TypeScript"],
+      github: "https://github.com/Himashmayadunna/auction-system",
+      caseStudyUrl: "/projects/auction-system",
+      category: "web" as const,
+    },
+    {
+      id: "board-lanka",
+      step: "03",
+      title: "Board Lanka",
+      subtitle: "Real Estate Marketplace",
+      description: "Property marketplace platform connecting buyers and sellers with role-based listings and MongoDB storage.",
+      techStack: ["Next.js", "Node.js", "MongoDB", "JavaScript"],
+      github: "https://github.com/Himashmayadunna/BoardLanka",
+      caseStudyUrl: "/projects/bordlanka",
+      category: "web" as const,
+    },
+    {
+      id: "medilex",
+      step: "04",
+      title: "MediLex",
+      subtitle: "Healthcare & Inventory ERP",
+      description: "Full-scale enterprise healthcare & clinical inventory platform with 3NF relational SQL database and JWT RBAC.",
+      techStack: ["React.js", "Express.js", "Node.js", "MS SQL Server", "TypeScript"],
+      github: "https://github.com/Himashmayadunna/Healthcare-And-Inventory-Management-System",
+      caseStudyUrl: "/projects/medilex",
+      category: "web" as const,
+    },
+  ],
+  mobile: [
+    {
+      id: "travel-mate",
+      step: "01",
+      title: "LK TravelMate",
+      subtitle: "AI Travel Assistant",
+      description: "AI-powered travel companion for Sri Lanka combining Gemini AI recommendations, Google Maps navigation, and local translation.",
+      techStack: ["Flutter", "Dart", "Firebase", "Gemini AI", "Google Maps"],
+      github: "https://github.com/Himashmayadunna/LK_Travelmate_new",
+      caseStudyUrl: "/projects/lktravelmate",
+      category: "mobile" as const,
+    },
+    {
+      id: "car-renting",
+      step: "02",
+      title: "Car Renting System",
+      subtitle: "Vehicle Rental Marketplace",
+      description: "Cross-platform mobile vehicle rental application with catalog discovery, date reservation, and Firebase backend.",
+      techStack: ["Flutter", "Dart", "Firebase"],
+      github: "https://github.com/Himashmayadunna/Car_Renting_System",
+      caseStudyUrl: "/projects/car-rent-app",
+      category: "mobile" as const,
+    },
+  ],
+};
+
 export const DEVELOPMENT_JOURNEY: JourneyItem[] = [
-  {
-    year: "2026",
-    title: "Healthcare & Inventory Management System",
-    description: "Built a full-stack healthcare inventory management platform with authentication, inventory tracking, and responsive dashboards.",
-    techStack: ["React", "Express.js", "Node.js", "Supabase", "Tailwind CSS"],
-    github: "https://github.com/Himashmayadunna/Healthcare-And-Inventory-Management-System",
-    demo: "https://healthcare-inventory.example.com",
-    iconType: "web"
-  },
-  {
-    year: "2026",
-    title: "Internship Management System",
-    description: "Developed a full-stack internship management portal with role-based authentication and company/student management features.",
-    techStack: ["React", "Express.js", "Supabase", "Tailwind CSS"],
-    github: "https://github.com/Himashmayadunna/internship-manager",
-    iconType: "database"
-  },
-  {
-    year: "2025",
-    title: "TravelMate Mobile Application",
-    description: "Created a travel planning application with modern UI and location-based features.",
-    techStack: ["Flutter", "Firebase"],
-    github: "https://github.com/Himashmayadunna/LK_Travelmate_new",
-    iconType: "mobile"
-  }
+  ...JOURNEY_TRACKS.web,
+  ...JOURNEY_TRACKS.mobile,
 ];
 
 // ── Education ────────────────────────────────────────────────

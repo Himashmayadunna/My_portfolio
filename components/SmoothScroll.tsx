@@ -23,15 +23,6 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  useEffect(() => {
-    if (isMobile) return;
-    
-    const lenis = lenisRef.current?.lenis;
-    if (lenis) {
-      console.log("Lenis instantiated successfully:", lenis);
-    }
-  }, [isMobile]);
-
   if (isMobile) {
     return <>{children}</>;
   }
@@ -41,10 +32,10 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       root
       ref={lenisRef}
       options={{
-        duration: 1.2,
-        lerp: 0.08,
+        duration: 1.1,
+        lerp: 0.09,
         smoothWheel: true,
-        syncTouch: false, // Never intercept touch events with JavaScript smooth scroll
+        syncTouch: false,
         touchMultiplier: 1.5,
         wheelMultiplier: 1.0,
         infinite: false,

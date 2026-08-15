@@ -7,7 +7,7 @@ export default function CustomCursor() {
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
 
-  const springConfig = { damping: 25, stiffness: 350, mass: 0.35 };
+  const springConfig = { damping: 28, stiffness: 350, mass: 0.3 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
@@ -16,11 +16,10 @@ export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Only show cursor on devices with mouse
-    if (typeof window !== "undefined") {
-      const isMobile = window.matchMedia("(max-width: 768px)").matches;
-      if (isMobile) return;
-    }
+    // Only activate cursor for devices with mouse/fine pointer
+    if (typeof window === "undefined") return;
+    const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+    if (!isFinePointer) return;
 
     const moveMouse = (e: MouseEvent) => {
       mouseX.set(e.clientX);
@@ -30,10 +29,6 @@ export default function CustomCursor() {
 
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
-
-    window.addEventListener("mousemove", moveMouse);
-    document.addEventListener("mouseleave", handleMouseLeave);
-    document.addEventListener("mouseenter", handleMouseEnter);
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -55,9 +50,12 @@ export default function CustomCursor() {
     const handleMouseDown = () => setClicked(true);
     const handleMouseUp = () => setClicked(false);
 
-    window.addEventListener("mouseover", handleMouseOver);
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("mousemove", moveMouse, { passive: true });
+    document.addEventListener("mouseleave", handleMouseLeave, { passive: true });
+    document.addEventListener("mouseenter", handleMouseEnter, { passive: true });
+    window.addEventListener("mouseover", handleMouseOver, { passive: true });
+    window.addEventListener("mousedown", handleMouseDown, { passive: true });
+    window.addEventListener("mouseup", handleMouseUp, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", moveMouse);
@@ -85,11 +83,11 @@ export default function CustomCursor() {
           scale: hovered ? 1.5 : 1,
           backgroundColor: hovered ? "rgba(124, 58, 237, 0.1)" : "rgba(59, 130, 246, 0.03)",
           borderColor: hovered ? "rgba(168, 85, 247, 0.5)" : "rgba(59, 130, 246, 0.25)",
-          width: hovered ? 60 : 32,
-          height: hovered ? 60 : 32,
+          width: hovered ? 56 : 32,
+          height: hovered ? 56 : 32,
         }}
         transition={{ type: "spring", stiffness: 350, damping: 28 }}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full border border-blue-500/20 bg-blue-500/5 mix-blend-screen backdrop-blur-[0.5px] hidden md:block"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full border border-blue-500/20 mix-blend-screen hidden md:block transform-gpu will-change-transform"
       />
       {/* Inner Dot */}
       <motion.div
@@ -104,7 +102,7 @@ export default function CustomCursor() {
           backgroundColor: hovered ? "#A855F7" : "#3B82F6",
         }}
         transition={{ type: "spring", stiffness: 450, damping: 25 }}
-        className="pointer-events-none fixed top-0 left-0 z-[9999] h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.6)] hidden md:block"
+        className="pointer-events-none fixed top-0 left-0 z-[9999] h-2.5 w-2.5 rounded-full shadow-[0_0_8px_rgba(59,130,246,0.6)] hidden md:block transform-gpu will-change-transform"
       />
     </>
   );
