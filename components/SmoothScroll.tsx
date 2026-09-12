@@ -9,21 +9,27 @@ interface SmoothScrollProps {
 
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   const lenisRef = useRef<any>(null);
+  const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
       const isMobileScreen = window.innerWidth <= 1024;
-      const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+      const isTouchDevice =
+        window.matchMedia("(pointer: coarse)").matches ||
+        "ontouchstart" in window ||
+        navigator.maxTouchPoints > 0;
       setIsMobile(isMobileScreen || isTouchDevice);
     };
 
     checkMobile();
+    setMounted(true);
+
     window.addEventListener("resize", checkMobile, { passive: true });
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  if (isMobile) {
+  if (!mounted || isMobile) {
     return <>{children}</>;
   }
 

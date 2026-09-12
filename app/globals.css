@@ -20,10 +20,8 @@ html {
   background-color: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
-}
-
-html:not(.lenis) {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
 }
 
 /* ── Lenis Smooth Scroll Resets ────────────────────────────── */

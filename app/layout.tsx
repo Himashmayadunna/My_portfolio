@@ -60,9 +60,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark custom-cursor-enabled">
+    <html lang="en" className="dark custom-cursor-enabled" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#05050B] text-white selection:bg-purple-500/30`}
+        suppressHydrationWarning
       >
         <SmoothScroll>
           <CustomCursor />
