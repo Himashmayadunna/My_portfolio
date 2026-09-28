@@ -41,12 +41,31 @@ export const metadata: Metadata = {
     "Sri Lanka"
   ],
   authors: [{ name: SITE.name }],
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: `${SITE.name} — Full-Stack Developer Portfolio`,
     description: SITE.description,
     type: "website",
     locale: "en_US",
     siteName: SITE.name,
+    images: [
+      {
+        url: "/logo.png",
+        width: 800,
+        height: 800,
+        alt: `${SITE.name} Logo`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name} — Full-Stack Developer Portfolio`,
+    description: SITE.description,
+    images: ["/logo.png"],
   },
   robots: {
     index: true,
