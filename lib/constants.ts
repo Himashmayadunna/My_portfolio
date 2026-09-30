@@ -164,10 +164,10 @@ export const PROJECTS: Project[] = [
       "Designed efficient property search and filtering for rent and sale listings",
     ],
     github: "https://github.com/Himashmayadunna/BoardLanka",
-    demo: "/projects/bordlanka",
+    demo: "https://board-lanka.vercel.app/",
     isFlagship: true,
     subtitle: "Real Estate Marketplace",
-    mockUrl: "bordlanka.lk",
+    mockUrl: "board-lanka.vercel.app",
     caseStudyUrl: "/projects/bordlanka",
     stats: [
       { label: "Collections", value: "8+", color: "bg-blue-500" },

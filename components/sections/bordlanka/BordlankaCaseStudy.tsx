@@ -19,10 +19,26 @@ import {
   AlertTriangle,
   Briefcase,
   Layers,
-  ChevronRight
+  ChevronRight,
+  ExternalLink
 } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import GlassCard from "@/components/ui/GlassCard";
+
+const Github = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+    <path d="M9 18c-4.51 2-5-2-7-2" />
+  </svg>
+);
 
 // Count-up animation helper hook
 function useCountUp(endValue: number, duration: number = 2000) {
@@ -77,11 +93,22 @@ export default function BordlankaCaseStudy() {
             <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
             Back to Portfolio
           </Link>
-          <div className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 font-mono">
-              BoardLanka Case Study
-            </span>
+          <div className="flex items-center gap-3">
+            <a
+              href="https://board-lanka.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 hover:bg-blue-500/20 hover:text-blue-300 transition-colors"
+            >
+              <span>Live Demo</span>
+              <ExternalLink className="h-3 w-3" />
+            </a>
+            <div className="hidden sm:flex items-center gap-2 pl-2 border-l border-white/10">
+              <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+              <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 font-mono">
+                BoardLanka Case Study
+              </span>
+            </div>
           </div>
         </div>
       </header>
@@ -101,9 +128,31 @@ export default function BordlankaCaseStudy() {
                 Next-Gen Rentals.
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed mb-8">
               A modern full-stack property rental platform built for students, working professionals, and families to discover rooms, annexes, and houses across Sri Lanka.
             </p>
+
+            {/* Live Demo & GitHub CTAs */}
+            <div className="flex flex-wrap items-center justify-center gap-4 select-none">
+              <a
+                href="https://board-lanka.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 px-6 py-3.5 text-sm font-bold tracking-wider text-white hover:from-blue-500 hover:to-indigo-500 shadow-[0_0_30px_rgba(59,130,246,0.35)] hover:shadow-[0_0_40px_rgba(59,130,246,0.6)] transition-all transform hover:-translate-y-0.5"
+              >
+                <ExternalLink className="w-4 h-4" />
+                <span>Launch Live Platform</span>
+              </a>
+              <a
+                href="https://github.com/Himashmayadunna/BoardLanka"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 px-6 py-3.5 text-sm font-bold tracking-wider text-neutral-200 hover:text-white transition-all transform hover:-translate-y-0.5"
+              >
+                <Github className="w-4 h-4" />
+                <span>Source Code</span>
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -382,9 +431,29 @@ export default function BordlankaCaseStudy() {
 
           <GlassCard className="p-10 md:p-16 border-blue-500/20 bg-gradient-to-b from-blue-900/10 to-transparent">
             <h2 className="text-3xl font-bold mb-6 text-white">Conclusion</h2>
-            <p className="text-lg text-neutral-300 leading-relaxed mx-auto max-w-2xl">
+            <p className="text-lg text-neutral-300 leading-relaxed mx-auto max-w-2xl mb-8">
               BoardLanka successfully demonstrates my ability to build scalable full-stack applications using modern technologies. From designing intuitive interfaces to engineering robust backend systems and PostgreSQL databases, this project represents my commitment to best software engineering practices and delivering real-world value.
             </p>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="https://board-lanka.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-7 py-3.5 text-sm font-bold tracking-wider text-white hover:from-blue-500 hover:to-indigo-500 shadow-[0_0_25px_rgba(59,130,246,0.3)] hover:shadow-[0_0_35px_rgba(59,130,246,0.5)] transition-all transform hover:-translate-y-0.5"
+              >
+                <ExternalLink className="w-4 h-4" />
+                <span>Visit BoardLanka Live</span>
+              </a>
+              <a
+                href="https://github.com/Himashmayadunna/BoardLanka"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 px-6 py-3.5 text-sm font-bold tracking-wider text-neutral-200 hover:text-white transition-all transform hover:-translate-y-0.5"
+              >
+                <Github className="w-4 h-4" />
+                <span>GitHub Repository</span>
+              </a>
+            </div>
           </GlassCard>
         </div>
       </section>
